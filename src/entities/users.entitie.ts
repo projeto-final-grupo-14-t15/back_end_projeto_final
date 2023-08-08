@@ -30,7 +30,7 @@ class User {
   password: string;
 
   @Column({ type: "boolean", default: false })
-  accountType: boolean;
+  isAdmin: boolean;
 
   @Column({ type: "varchar", length: 255 })
   description: string;
@@ -51,7 +51,6 @@ class User {
   updated_at: Date | string;
 
   @OneToOne(() => Address, (address) => address.user, { cascade: true })
-  @JoinColumn()
   address: Address;
 
   @OneToMany(() => Announcement, (announcement) => announcement.user)

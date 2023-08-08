@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -35,6 +36,7 @@ class Address {
   updated_at: Date | string;
 
   @OneToOne(() => User, (user) => user.address)
+  @JoinColumn()
   user: User;
 }
 
