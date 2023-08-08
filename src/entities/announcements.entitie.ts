@@ -23,7 +23,7 @@ class Announcement {
   id: number;
 
   @Column({ type: "varchar", length: 55 })
-  mark: string;
+  brand: string;
 
   @Column({ type: "varchar", length: 255 })
   description: string;
@@ -43,8 +43,8 @@ class Announcement {
   @Column({ type: "varchar", length: 55 })
   color: string;
 
-  @Column({ type: "varchar", length: 55 })
-  price_table: string;
+  @Column({ type: "boolean" })
+  higher_than_fipe: boolean;
 
   @Column({ type: "varchar", length: 55 })
   price: string;
