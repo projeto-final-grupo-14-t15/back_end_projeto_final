@@ -1,4 +1,4 @@
-import { AppError } from "../../error";
+
 import jwt from "jsonwebtoken";
 import { Repository } from "typeorm";
 
@@ -7,6 +7,7 @@ import { compare } from "bcryptjs";
 import TLoginRequest from "../../interfaces/login.interfaces";
 import "dotenv/config";
 import { User } from "../../entities/users.entitie";
+import { AppError } from "../../error/error";
 
 const logIn = async (data: TLoginRequest): Promise<string> => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);

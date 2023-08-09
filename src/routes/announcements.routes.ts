@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createAnnouncementController,
+  deleteAnnouncementController,
   updateAnnouncementController,
 } from "../controllers/announcements.controllers";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid";
@@ -9,6 +10,7 @@ import {
   announcementSchemaUpadate,
 } from "../schemas/announcements.schemas";
 import ensureTokenIsValid from "../middlewares/ensureTokenIsValid";
+import { checkAnnouncementExistById } from "../middlewares/checkAnnouncementsExistById";
 
 const announcementRoutes: Router = Router();
 
@@ -24,6 +26,13 @@ announcementRoutes.patch(
   ensureTokenIsValid,
   ensureDataIsValidMiddleware(announcementSchemaUpadate),
   updateAnnouncementController
+);
+
+announcementRoutes.delete(
+  "/:id",
+  ensureTokenIsValid,
+  checkAnnouncementExistById,
+  deleteAnnouncementController
 );
 
 export default announcementRoutes;

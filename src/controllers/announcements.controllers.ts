@@ -12,6 +12,7 @@ import {
 import { Announcement } from "../entities/announcements.entitie";
 import { createAnnouncementService } from "../services/announcements/createAnnouncement.service";
 import { updateAnnouncementService } from "../services/announcements/updateAnnouncement.service";
+import deleteAnnouncementService from "../services/announcements/deleteAnnouncement.service";
 
 const createAnnouncementController = async (
   req: Request,
@@ -53,4 +54,19 @@ const updateAnnouncementController = async (
   return res.status(200).json(newAnnouncement);
 };
 
-export { createAnnouncementController, updateAnnouncementController };
+const deleteAnnouncementController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const announcementId: number = parseInt(req.params.id);
+
+  await deleteAnnouncementService(announcementId);
+
+  return res.status(204).send();
+};
+
+export {
+  createAnnouncementController,
+  updateAnnouncementController,
+  deleteAnnouncementController,
+};
