@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import {
-  TAnnouncementRequest,
-  TAnnouncementResponse,
+   TAnnouncementRequest,
+   TAnnouncementResponse,
 } from "../interfaces/announcements.interfaces";
 import {
-  announcementSchemaRequest,
-  announcementSchemaResponse,
-  announcementSchemaResponseDois,
+   announcementSchemaRequest,
+   announcementSchemaResponse,
+   announcementSchemaResponseDois,
 } from "../schemas/announcements.schemas";
 import { Announcement } from "../entities/announcements.entitie";
 import { createAnnouncementService } from "../services/announcements/createAnnouncement.service";
@@ -16,93 +16,96 @@ import deleteAnnouncementService from "../services/announcements/deleteAnnouncem
 import { filterAnnouncementService } from "../services/announcements/filterAnnouncement.services";
 
 const createAnnouncementController = async (
-  req: Request,
-  res: Response
+   req: Request,
+   res: Response
 ): Promise<Response> => {
-  const announcementData: TAnnouncementRequest =
-    announcementSchemaRequest.parse(req.body);
+   const announcementData: TAnnouncementRequest =
+      announcementSchemaRequest.parse(req.body);
 
-  const userId = res.locals.token.id;
+   const userId = res.locals.token.id;
 
-  const newAnnouncement: Announcement = await createAnnouncementService(
-    announcementData,
-    userId
-  );
+   const newAnnouncement: Announcement = await createAnnouncementService(
+      announcementData,
+      userId
+   );
 
-  const response: TAnnouncementResponse =
-    announcementSchemaResponse.parse(newAnnouncement);
+   const response: TAnnouncementResponse =
+      announcementSchemaResponse.parse(newAnnouncement);
 
-  return res.status(201).json(response);
+   return res.status(201).json(response);
 };
 const updateAnnouncementController = async (
-  req: Request,
-  res: Response
+   req: Request,
+   res: Response
 ): Promise<Response> => {
-  const announcementData = req.body;
+   const announcementData = req.body;
 
-  const userId = res.locals.token.id;
-  const announcementId = Number(req.params.id);
+   const userId = res.locals.token.id;
+   const announcementId = Number(req.params.id);
 
-  const newAnnouncement /*: Announcement*/ = await updateAnnouncementService(
-    announcementData,
-    userId,
-    announcementId
-  );
+   const newAnnouncement /*: Announcement*/ = await updateAnnouncementService(
+      announcementData,
+      userId,
+      announcementId
+   );
 
-  // const response: TAnnouncementResponse =
-  //   announcementSchemaResponse.parse(newAnnouncement);
+   // const response: TAnnouncementResponse =
+   //   announcementSchemaResponse.parse(newAnnouncement);
 
-  return res.status(200).json(newAnnouncement);
+   return res.status(200).json(newAnnouncement);
 };
 
 const deleteAnnouncementController = async (
-  req: Request,
-  res: Response
+   req: Request,
+   res: Response
 ): Promise<Response> => {
-  const announcementId: number = parseInt(req.params.id);
-  await deleteAnnouncementService(announcementId);
+   const announcementId: number = parseInt(req.params.id);
+   await deleteAnnouncementService(announcementId);
 
-  return res.status(204).send();
+   return res.status(204).send();
 };
 
 const listAnnouncementController = async (
-  req: Request,
-  res: Response
+   req: Request,
+   res: Response
 ): Promise<Response> => {
-  const userId: number = Number(req.params.id);
+   const userId: number = Number(req.params.id);
 
-  const response = await listAnnouncementService(userId);
+   const response = await listAnnouncementService(userId);
 
-  const parsedResponse: TAnnouncementResponse =
-    announcementSchemaResponseDois.parse(response);
+   const parsedResponse: TAnnouncementResponse =
+      announcementSchemaResponseDois.parse(response);
 
-  return res.status(200).json(parsedResponse);
+   return res.status(200).json(parsedResponse);
 };
 
 const filterAnnouncementController = async (
-  req: Request,
-  res: Response
+   req: Request,
+   res: Response
 ): Promise<Response> => {
-  const { brand, model, color, year, fuel, km, minPrice, maxPrice } = req.query;
+   const { brand, model, color, year, fuel, minPrice, maxPrice, minKm, maxKm } =
+      req.query;
+   console.log(minKm)
+   
+   const listAnnouncement = await filterAnnouncementService(
+      brand,
+      model,
+      color,
+      year,
+      fuel,
+      minPrice,
+      maxPrice,
+      minKm,
+      maxKm
+   );
 
-  const listAnnouncement = await filterAnnouncementService(
-    brand,
-    model,
-    color,
-    year,
-    fuel,
-    km,
-    minPrice,
-    maxPrice
-  );
-
-  return res.status(200).json(listAnnouncement);
+   return res.status(200).json(listAnnouncement);
 };
 
 export {
-  createAnnouncementController,
-  updateAnnouncementController,
-  deleteAnnouncementController,
-  listAnnouncementController,
-  filterAnnouncementController,
+   createAnnouncementController,
+   updateAnnouncementController,
+   deleteAnnouncementController,
+   listAnnouncementController,
+   filterAnnouncementController,
 };
