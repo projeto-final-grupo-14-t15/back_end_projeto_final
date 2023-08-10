@@ -5,6 +5,7 @@ import {
   listAnnouncementController,
   deleteAnnouncementController,
   updateAnnouncementController,
+  filterAnnouncementController,
 } from "../controllers/announcements.controllers";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid";
 import {
@@ -25,7 +26,6 @@ announcementRoutes.post(
 
 announcementRoutes.get("/:id", listAnnouncementController);
 
-
 announcementRoutes.patch(
   "/:id",
   ensureTokenIsValid,
@@ -38,6 +38,8 @@ announcementRoutes.delete(
   ensureTokenIsValid,
   checkAnnouncementExistById,
   deleteAnnouncementController
-);
+  );
+  
+announcementRoutes.get("",filterAnnouncementController );
 
 export default announcementRoutes;
