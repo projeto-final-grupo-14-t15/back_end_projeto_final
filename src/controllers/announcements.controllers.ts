@@ -83,10 +83,18 @@ const filterAnnouncementController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
+  const { brand, model, color, year, fuel, km, minPrice, maxPrice } = req.query;
 
-  const { brand, model, color,year,fuel,km,price } = req.query;
-
-  const listAnnouncement = await filterAnnouncementService(brand, model, color,year,fuel,km,price);
+  const listAnnouncement = await filterAnnouncementService(
+    brand,
+    model,
+    color,
+    year,
+    fuel,
+    km,
+    minPrice,
+    maxPrice
+  );
 
   return res.status(200).json(listAnnouncement);
 };
@@ -96,5 +104,5 @@ export {
   updateAnnouncementController,
   deleteAnnouncementController,
   listAnnouncementController,
-  filterAnnouncementController
+  filterAnnouncementController,
 };
