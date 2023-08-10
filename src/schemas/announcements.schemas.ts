@@ -23,9 +23,12 @@ const announcementSchemaRequest = announcementSchema.omit({
   photos: true,
   updated_at: true,
 });
-const announcementSchemaUpadate = announcementSchemaRequest.partial();
 
-const announcementSchemaResponse = announcementSchema;
+const announcementSchemaResponse = announcementSchema.omit({
+  photos: true,
+});
+const announcementSchemaResponseDois = announcementSchema;
+const announcementSchemaUpadate = announcementSchemaRequest.partial();
 
 const announcementsSchemaResponse = z.array(announcementSchemaResponse);
 
@@ -35,4 +38,5 @@ export {
   announcementSchemaResponse,
   announcementsSchemaResponse,
   announcementSchemaUpadate,
+  announcementSchemaResponseDois,
 };
