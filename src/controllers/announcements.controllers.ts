@@ -13,6 +13,7 @@ import { createAnnouncementService } from "../services/announcements/createAnnou
 import { listAnnouncementService } from "../services/announcements/listAnnouncement.service";
 import { updateAnnouncementService } from "../services/announcements/updateAnnouncement.service";
 import deleteAnnouncementService from "../services/announcements/deleteAnnouncement.service";
+import { filterAnnouncementService } from "../services/announcements/filterAnnouncement.services";
 
 const createAnnouncementController = async (
   req: Request,
@@ -78,9 +79,22 @@ const listAnnouncementController = async (
   return res.status(200).json(parsedResponse);
 };
 
+const filterAnnouncementController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+
+  const { brand, model, color,year,fuel,km,price } = req.query;
+
+  const listAnnouncement = await filterAnnouncementService(brand, model, color,year,fuel,km,price);
+
+  return res.status(200).json(listAnnouncement);
+};
+
 export {
   createAnnouncementController,
   updateAnnouncementController,
   deleteAnnouncementController,
   listAnnouncementController,
+  filterAnnouncementController
 };
