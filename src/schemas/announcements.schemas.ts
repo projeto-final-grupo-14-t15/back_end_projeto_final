@@ -23,6 +23,7 @@ const announcementSchemaRequest = announcementSchema.omit({
   photos: true,
   updated_at: true,
 });
+const announcementSchemaUpadate = announcementSchemaRequest.partial();
 
 const announcementSchemaResponse = announcementSchema;
 
@@ -33,4 +34,5 @@ export {
   announcementSchemaRequest,
   announcementSchemaResponse,
   announcementsSchemaResponse,
+  announcementSchemaUpadate,
 };

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { AppError } from "../error";
 import { verify } from "jsonwebtoken";
+import { AppError } from "../error/error";
 
 const ensureTokenIsValid = async (
   req: Request,
