@@ -16,11 +16,11 @@ type TAnnouncementUpdate = {
   description?: string;
   model?: string;
   year?: string;
-  km?: string;
+  km?: number;
   fuel?: string;
   color?: string;
   higher_than_fipe?: boolean;
-  price?: string;
+  price?: number;
 };
 // z.infer<typeof announcementSchemaUpadate>;
 
