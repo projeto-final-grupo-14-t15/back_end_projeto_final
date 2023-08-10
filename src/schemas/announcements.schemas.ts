@@ -24,9 +24,7 @@ const announcementSchemaRequest = announcementSchema.omit({
   updated_at: true,
 });
 
-const announcementSchemaResponse = announcementSchema.omit({
-  photos: true,
-});
+const announcementSchemaResponse = announcementSchema;
 
 const announcementsSchemaResponse = z.array(announcementSchemaResponse);
 
