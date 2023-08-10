@@ -2,12 +2,10 @@ import { Request, Response } from "express";
 import {
   TAnnouncementRequest,
   TAnnouncementResponse,
-  TAnnouncementUpdate,
 } from "../interfaces/announcements.interfaces";
 import {
   announcementSchemaRequest,
   announcementSchemaResponse,
-  announcementSchemaUpadate,
 } from "../schemas/announcements.schemas";
 import { Announcement } from "../entities/announcements.entitie";
 import { createAnnouncementService } from "../services/announcements/createAnnouncement.service";
