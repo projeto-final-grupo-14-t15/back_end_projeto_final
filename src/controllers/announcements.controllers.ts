@@ -2,12 +2,10 @@ import { Request, Response } from "express";
 import {
   TAnnouncementRequest,
   TAnnouncementResponse,
-  TAnnouncementUpdate,
 } from "../interfaces/announcements.interfaces";
 import {
   announcementSchemaRequest,
   announcementSchemaResponse,
-  announcementSchemaUpadate,
 } from "../schemas/announcements.schemas";
 import { Announcement } from "../entities/announcements.entitie";
 import { createAnnouncementService } from "../services/announcements/createAnnouncement.service";
@@ -60,7 +58,10 @@ const deleteAnnouncementController = async (
   res: Response
 ): Promise<Response> => {
   const announcementId: number = parseInt(req.params.id);
+  await deleteAnnouncementService(announcementId);
 
+  return res.status(204).send();
+};
 
 const listAnnouncementController = async (
   req: Request,
@@ -76,17 +77,9 @@ const listAnnouncementController = async (
   return res.status(200).json(parsedResponse);
 };
 
-
-
-  await deleteAnnouncementService(announcementId);
-
-  return res.status(204).send();
-};
-
 export {
   createAnnouncementController,
   updateAnnouncementController,
   deleteAnnouncementController,
-  listAnnouncementController
+  listAnnouncementController,
 };
-

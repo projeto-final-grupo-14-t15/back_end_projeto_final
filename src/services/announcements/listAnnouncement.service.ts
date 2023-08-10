@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 
-import { AppError } from "../../error";
+import { AppError } from "../../error/error";
 import { Announcement } from "../../entities/announcements.entitie";
 
 const listAnnouncementService = async (
