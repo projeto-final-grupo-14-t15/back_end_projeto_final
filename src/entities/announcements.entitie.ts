@@ -34,7 +34,7 @@ class Announcement {
   @Column({ type: "varchar", length: 4 })
   year: string;
 
-  @Column({ type: "varchar", length: 55 })
+  @Column({ type: "varchar", length: 6 })
   km: string;
 
   @Column({ type: "varchar", length: 55 })
@@ -46,7 +46,7 @@ class Announcement {
   @Column({ type: "boolean" })
   higher_than_fipe: boolean;
 
-  @Column({ type: "varchar", length: 55 })
+  @Column({ type: "varchar", length: 10 })
   price: string;
 
   @CreateDateColumn({ type: "date" })
