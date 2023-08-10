@@ -25,9 +25,7 @@ const announcementSchemaRequest = announcementSchema.omit({
 });
 const announcementSchemaUpadate = announcementSchemaRequest.partial();
 
-const announcementSchemaResponse = announcementSchema.omit({
-  photos: true,
-});
+const announcementSchemaResponse = announcementSchema;
 
 const announcementsSchemaResponse = z.array(announcementSchemaResponse);
 

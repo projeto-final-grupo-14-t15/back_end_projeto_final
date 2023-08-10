@@ -11,6 +11,7 @@ import {
 } from "../schemas/announcements.schemas";
 import { Announcement } from "../entities/announcements.entitie";
 import { createAnnouncementService } from "../services/announcements/createAnnouncement.service";
+import { listAnnouncementService } from "../services/announcements/listAnnouncement.service";
 import { updateAnnouncementService } from "../services/announcements/updateAnnouncement.service";
 import deleteAnnouncementService from "../services/announcements/deleteAnnouncement.service";
 
@@ -60,6 +61,23 @@ const deleteAnnouncementController = async (
 ): Promise<Response> => {
   const announcementId: number = parseInt(req.params.id);
 
+
+const listAnnouncementController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const userId: number = Number(req.params.id);
+
+  const response = await listAnnouncementService(userId);
+
+  const parsedResponse: TAnnouncementResponse =
+    announcementSchemaResponse.parse(response);
+
+  return res.status(200).json(parsedResponse);
+};
+
+
+
   await deleteAnnouncementService(announcementId);
 
   return res.status(204).send();
@@ -69,4 +87,6 @@ export {
   createAnnouncementController,
   updateAnnouncementController,
   deleteAnnouncementController,
+  listAnnouncementController
 };
+

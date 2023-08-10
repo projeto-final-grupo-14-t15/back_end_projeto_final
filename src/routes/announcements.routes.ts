@@ -1,6 +1,8 @@
 import { Router } from "express";
 import {
   createAnnouncementController,
+
+  listAnnouncementController,
   deleteAnnouncementController,
   updateAnnouncementController,
 } from "../controllers/announcements.controllers";
@@ -20,6 +22,9 @@ announcementRoutes.post(
   ensureDataIsValidMiddleware(announcementSchemaRequest),
   createAnnouncementController
 );
+
+announcementRoutes.get("/:id", listAnnouncementController);
+
 
 announcementRoutes.patch(
   "/:id",
