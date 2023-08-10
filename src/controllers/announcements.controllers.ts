@@ -6,6 +6,7 @@ import {
 import {
   announcementSchemaRequest,
   announcementSchemaResponse,
+  announcementSchemaResponseDois,
 } from "../schemas/announcements.schemas";
 import { Announcement } from "../entities/announcements.entitie";
 import { createAnnouncementService } from "../services/announcements/createAnnouncement.service";
@@ -72,7 +73,7 @@ const listAnnouncementController = async (
   const response = await listAnnouncementService(userId);
 
   const parsedResponse: TAnnouncementResponse =
-    announcementSchemaResponse.parse(response);
+    announcementSchemaResponseDois.parse(response);
 
   return res.status(200).json(parsedResponse);
 };
