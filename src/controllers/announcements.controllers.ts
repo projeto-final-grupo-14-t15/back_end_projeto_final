@@ -60,7 +60,10 @@ const deleteAnnouncementController = async (
   res: Response
 ): Promise<Response> => {
   const announcementId: number = parseInt(req.params.id);
+  await deleteAnnouncementService(announcementId);
 
+  return res.status(204).send();
+};
 
 const listAnnouncementController = async (
   req: Request,
@@ -76,17 +79,9 @@ const listAnnouncementController = async (
   return res.status(200).json(parsedResponse);
 };
 
-
-
-  await deleteAnnouncementService(announcementId);
-
-  return res.status(204).send();
-};
-
 export {
   createAnnouncementController,
   updateAnnouncementController,
   deleteAnnouncementController,
-  listAnnouncementController
+  listAnnouncementController,
 };
-
