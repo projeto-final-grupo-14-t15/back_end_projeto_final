@@ -12,7 +12,7 @@ const filterAnnouncementService = async (
    minPrice: string | string[] | ParsedQs | ParsedQs[] | undefined,
    maxPrice: string | string[] | ParsedQs | ParsedQs[] | undefined,
    minKm: string | string[] | ParsedQs | ParsedQs[] | undefined,
-   maxKm: string | string[] | ParsedQs | ParsedQs[] | undefined,
+   maxKm: string | string[] | ParsedQs | ParsedQs[] | undefined
 ): Promise<Announcement[]> => {
    const personRepository: Repository<Announcement> =
       AppDataSource.getRepository(Announcement);
@@ -48,11 +48,14 @@ const filterAnnouncementService = async (
    }
 
    if (minKm) {
-      console.log(minKm)
+      console.log(minKm);
       query = query.andWhere("announcements.km  >= :minKm", { minKm });
    }
 
-   const dataFiltered = await query.getMany();
+   const dataFiltered = await query
+      .leftJoinAndSelect("announcements.photos", "photos")
+      .leftJoinAndSelect("announcements.user", "user")
+      .getMany();
 
    return dataFiltered;
 };
