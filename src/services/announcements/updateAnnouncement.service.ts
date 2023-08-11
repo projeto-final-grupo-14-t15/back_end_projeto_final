@@ -6,7 +6,7 @@ import {
 } from "../../interfaces/announcements.interfaces";
 import { Announcement } from "../../entities/announcements.entitie";
 import { User } from "../../entities/users.entitie";
-import { AppError } from "../../error";
+import { AppError } from "../../error/error";
 
 const updateAnnouncementService = async (
   announcementData: TAnnouncementUpdate,

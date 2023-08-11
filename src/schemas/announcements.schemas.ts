@@ -7,11 +7,11 @@ const announcementSchema = z.object({
   description: z.string().max(255),
   model: z.string().max(55),
   year: z.string().max(4),
-  km: z.string().max(55),
+  km: z.number(),
   fuel: z.string().max(55),
   color: z.string().max(55),
   higher_than_fipe: z.boolean(),
-  price: z.string().max(55),
+  price: z.number(),
   createdAt: z.string(),
   updated_at: z.string(),
   photos: photosSchemaResponse,
@@ -23,11 +23,12 @@ const announcementSchemaRequest = announcementSchema.omit({
   photos: true,
   updated_at: true,
 });
-const announcementSchemaUpadate = announcementSchemaRequest.partial();
 
 const announcementSchemaResponse = announcementSchema.omit({
   photos: true,
 });
+const announcementSchemaResponseDois = announcementSchema;
+const announcementSchemaUpadate = announcementSchemaRequest.partial();
 
 const announcementsSchemaResponse = z.array(announcementSchemaResponse);
 
@@ -37,4 +38,5 @@ export {
   announcementSchemaResponse,
   announcementsSchemaResponse,
   announcementSchemaUpadate,
+  announcementSchemaResponseDois,
 };
