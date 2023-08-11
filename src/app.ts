@@ -1,13 +1,10 @@
 import express, { Application } from "express";
 import "reflect-metadata";
 import "express-async-errors";
-import announcementRoutes from "./routes/announcements.routes";
 import loginRoutes from "./routes/login.routes";
 import userRoutes from "./routes/users.routes";
 import { handleErros } from "./error/error";
 import cors from "cors"
-
-const cors = require('cors'); 
 
 const app: Application = express();
 
