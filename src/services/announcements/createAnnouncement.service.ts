@@ -5,7 +5,6 @@ import { Announcement } from "../../entities/announcements.entitie";
 import { User } from "../../entities/users.entitie";
 import { AppError } from "../../error/error";
 
-
 const createAnnouncementService = async (
   announcementData: TAnnouncementRequest,
   id: number

@@ -4,13 +4,11 @@ import { Announcement } from "../entities/announcements.entitie";
 import { AppDataSource } from "../data-source";
 import { AppError } from "../error/error";
 
-
-
-   const checkAnnouncementExistById = async (
+const checkAnnouncementExistByIdMiddlewares = async (
    req: Request,
    res: Response,
    next: NextFunction
-   ): Promise<Response | void> => {
+): Promise<Response | void> => {
    const id: number = parseInt(req.params.id);
 
    const AnnouncementRepository: Repository<Announcement> =
@@ -25,6 +23,6 @@ import { AppError } from "../error/error";
    }
 
    return next();
-   };
+};
 
-export { checkAnnouncementExistById };
+export { checkAnnouncementExistByIdMiddlewares };
