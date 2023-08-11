@@ -6,19 +6,20 @@ import {
    updateAnnouncementController,
    filterAnnouncementController,
 } from "../controllers/announcements.controllers";
-import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid";
+import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middlewares";
 import {
    announcementSchemaRequest,
    announcementSchemaUpadate,
 } from "../schemas/announcements.schemas";
-import ensureTokenIsValid from "../middlewares/ensureTokenIsValid";
-import { checkAnnouncementExistById } from "../middlewares/checkAnnouncementsExistById";
+import { checkAnnouncementExistByIdMiddlewares } from "../middlewares/checkAnnouncementsExistById.middlewares";
+import { checkIsOwnerAnnoucemntsMiddlewares } from "../middlewares/userIsOwnerAnnoucement.middlewares";
+import ensureTokenIsValidMiddlewares from "../middlewares/ensureTokenIsValid.middlewares";
 
 const announcementRoutes: Router = Router();
 
 announcementRoutes.post(
    "",
-   ensureTokenIsValid,
+   ensureTokenIsValidMiddlewares,
    ensureDataIsValidMiddleware(announcementSchemaRequest),
    createAnnouncementController
 );
@@ -27,15 +28,17 @@ announcementRoutes.get("/:id", listAnnouncementController);
 
 announcementRoutes.patch(
    "/:id",
-   ensureTokenIsValid,
+   ensureTokenIsValidMiddlewares,
    ensureDataIsValidMiddleware(announcementSchemaUpadate),
+   checkAnnouncementExistByIdMiddlewares,
+   checkIsOwnerAnnoucemntsMiddlewares,
    updateAnnouncementController
 );
 
 announcementRoutes.delete(
    "/:id",
-   ensureTokenIsValid,
-   checkAnnouncementExistById,
+   ensureTokenIsValidMiddlewares,
+   checkAnnouncementExistByIdMiddlewares,
    deleteAnnouncementController
 );
 

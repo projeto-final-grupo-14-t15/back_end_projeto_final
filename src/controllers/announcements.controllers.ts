@@ -40,17 +40,12 @@ const updateAnnouncementController = async (
 ): Promise<Response> => {
    const announcementData = req.body;
 
-   const userId = res.locals.token.id;
    const announcementId = Number(req.params.id);
 
-   const newAnnouncement /*: Announcement*/ = await updateAnnouncementService(
+   const newAnnouncement = await updateAnnouncementService(
       announcementData,
-      userId,
       announcementId
    );
-
-   // const response: TAnnouncementResponse =
-   //   announcementSchemaResponse.parse(newAnnouncement);
 
    return res.status(200).json(newAnnouncement);
 };
@@ -85,8 +80,8 @@ const filterAnnouncementController = async (
 ): Promise<Response> => {
    const { brand, model, color, year, fuel, minPrice, maxPrice, minKm, maxKm } =
       req.query;
-   console.log(minKm)
-   
+   console.log(minKm);
+
    const listAnnouncement = await filterAnnouncementService(
       brand,
       model,
