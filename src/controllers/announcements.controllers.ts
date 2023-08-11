@@ -17,6 +17,7 @@ import { filterAnnouncementService } from "../services/announcements/filterAnnou
 import { createPhotoService } from "../services/photos/createPhotos.service";
 import { Photo } from "../entities/photos.entitie";
 import { TPhotoRequest } from "../interfaces/photos.interfaces";
+import { AppError } from "../error/error";
 
 const createAnnouncementController = async (
    req: Request,
@@ -36,6 +37,10 @@ const createAnnouncementController = async (
       announcementSchemaResponse.parse(newAnnouncement);
 
    const photos = req.body.photos;
+
+   if (!photos) {
+      throw new AppError("Photo field not found", 404);
+   }
 
    photos.map(async (photo: string) => {
       const data: TPhotoRequest = { link: photo };
