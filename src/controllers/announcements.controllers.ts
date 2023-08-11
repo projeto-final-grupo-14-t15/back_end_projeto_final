@@ -14,6 +14,9 @@ import { listAnnouncementService } from "../services/announcements/listAnnouncem
 import { updateAnnouncementService } from "../services/announcements/updateAnnouncement.service";
 import deleteAnnouncementService from "../services/announcements/deleteAnnouncement.service";
 import { filterAnnouncementService } from "../services/announcements/filterAnnouncement.services";
+import { createPhotoService } from "../services/photos/createPhotos.service";
+import { Photo } from "../entities/photos.entitie";
+import { TPhotoRequest } from "../interfaces/photos.interfaces";
 
 const createAnnouncementController = async (
    req: Request,
@@ -28,9 +31,17 @@ const createAnnouncementController = async (
       announcementData,
       userId
    );
-
+   console.log(req.body);
    const response: TAnnouncementResponse =
       announcementSchemaResponse.parse(newAnnouncement);
+
+   const photos = req.body.photos;
+
+   photos.map(async (photo: string) => {
+      const data: TPhotoRequest = { link: photo };
+
+      const newPhoto: Photo = await createPhotoService(data, response.id);
+   });
 
    return res.status(201).json(response);
 };
@@ -80,7 +91,6 @@ const filterAnnouncementController = async (
 ): Promise<Response> => {
    const { brand, model, color, year, fuel, minPrice, maxPrice, minKm, maxKm } =
       req.query;
-   console.log(minKm);
 
    const listAnnouncement = await filterAnnouncementService(
       brand,
