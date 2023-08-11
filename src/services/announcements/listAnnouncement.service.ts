@@ -26,7 +26,7 @@ const listAnnouncementService = async (
 
    announcement.price = Number(announcement.price);
    announcement.km = Number(announcement.km);
-   console.log(typeof announcement.price);
+
    return announcement;
 };
 export { listAnnouncementService };

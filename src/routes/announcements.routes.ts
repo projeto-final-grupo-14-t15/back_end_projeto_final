@@ -20,7 +20,6 @@ const announcementRoutes: Router = Router();
 announcementRoutes.post(
    "",
    ensureTokenIsValidMiddlewares,
-   ensureDataIsValidMiddleware(announcementSchemaRequest),
    createAnnouncementController
 );
 
