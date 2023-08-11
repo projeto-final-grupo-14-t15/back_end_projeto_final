@@ -1,9 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import {
-   TAnnouncementRequest,
-   TAnnouncementUpdate,
-} from "../../interfaces/announcements.interfaces";
+import { TAnnouncementUpdate } from "../../interfaces/announcements.interfaces";
 import { Announcement } from "../../entities/announcements.entitie";
 import { User } from "../../entities/users.entitie";
 import { AppError } from "../../error/error";
