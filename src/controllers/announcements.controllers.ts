@@ -18,6 +18,7 @@ import { createPhotoService } from "../services/photos/createPhotos.service";
 import { Photo } from "../entities/photos.entitie";
 import { TPhotoRequest } from "../interfaces/photos.interfaces";
 import { AppError } from "../error/error";
+import { getAllUserAnnouncementsService } from "../services/announcements/getAllUserAnnoucements.service";
 
 const createAnnouncementController = async (
    req: Request,
@@ -112,10 +113,20 @@ const filterAnnouncementController = async (
    return res.status(200).json(listAnnouncement);
 };
 
+const getAllUserAnnouncements = async (req: Request, res: Response): Promise<Response> => {
+
+   const userId = Number(req.params.id);
+ 
+   const userAnnouncements: TAnnouncementRequest[] = await getAllUserAnnouncementsService(userId);
+ 
+   return res.status(200).json(userAnnouncements);
+};
+
 export {
    createAnnouncementController,
    updateAnnouncementController,
    deleteAnnouncementController,
    listAnnouncementController,
    filterAnnouncementController,
+   getAllUserAnnouncements
 };
