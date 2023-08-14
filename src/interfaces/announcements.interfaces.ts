@@ -19,8 +19,9 @@ type TAnnouncementUpdate = {
   km?: number;
   fuel?: string;
   color?: string;
-  higher_than_fipe?: boolean;
+  higherThanFipe?: boolean;
   price?: number;
+  isActive?: boolean;
 };
 // z.infer<typeof announcementSchemaUpadate>;
 
