@@ -42,13 +42,13 @@ class User {
   cpf: string;
 
   @Column({ type: "date" })
-  date_of_birth: Date | string;
+  dateOfBirth: Date | string;
 
   @CreateDateColumn({ type: "date" })
   createdAt: Date | string;
 
   @UpdateDateColumn({ type: "date" })
-  updated_at: Date | string;
+  updatedAt: Date | string;
 
   @OneToOne(() => Address, (address) => address.user, { cascade: true })
   address: Address;

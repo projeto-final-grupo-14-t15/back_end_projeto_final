@@ -44,7 +44,10 @@ class Announcement {
    color: string;
 
    @Column({ type: "boolean" })
-   higher_than_fipe: boolean;
+   higherThanFipe: boolean;
+
+   @Column({ type: "boolean", default: true  })
+   isActive: boolean;
 
    @Column({ type: "decimal" })
    price: number;
@@ -53,7 +56,7 @@ class Announcement {
    createdAt: Date | string;
 
    @UpdateDateColumn({ type: "date" })
-   updated_at: Date | string;
+   updatedAt: Date | string;
 
    @ManyToOne(() => User, (user) => user.announcements)
    @JoinColumn({ name: "user_id" })

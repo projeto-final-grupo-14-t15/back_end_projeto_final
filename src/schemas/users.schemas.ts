@@ -10,9 +10,9 @@ const userSchema = z.object({
   description: z.string().max(255),
   telephone: z.string().max(25),
   cpf: z.string().max(15),
-  date_of_birth: z.string(),
+  dateOfBirth: z.string(),
   createdAt: z.string(),
-  updated_at: z.string(),
+  updatedAt: z.string(),
   announcements: announcementsSchemaResponse,
 });
 
@@ -20,11 +20,11 @@ const userSchemaRequest = userSchema.omit({
   id: true,
   createdAt: true,
   announcements: true,
-  updated_at: true,
+  updatedAt: true,
 });
 
 const userSchemaRequestDois = userSchema.omit({
-  updated_at: true,
+  updatedAt: true,
   createdAt: true,
   password: true,
   announcements: true,

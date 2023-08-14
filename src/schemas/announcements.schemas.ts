@@ -10,10 +10,11 @@ const announcementSchema = z.object({
    km: z.number(),
    fuel: z.string().max(55),
    color: z.string().max(55),
-   higher_than_fipe: z.boolean(),
+   higherThanFipe: z.boolean(),
    price: z.number(),
+   isActive: z.boolean().default(true),
    createdAt: z.string(),
-   updated_at: z.string(),
+   updatedAt: z.string(),
    photos: photosSchemaResponse,
 });
 
@@ -21,7 +22,7 @@ const announcementSchemaRequest = announcementSchema.omit({
    id: true,
    createdAt: true,
    photos: true,
-   updated_at: true,
+   updatedAt: true,
 });
 
 const announcementSchemaResponse = announcementSchema.omit({
