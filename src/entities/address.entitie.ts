@@ -33,7 +33,7 @@ class Address {
   createdAt: Date | string;
 
   @UpdateDateColumn({ type: "date" })
-  updated_at: Date | string;
+  updatedAt: Date | string;
 
   @OneToOne(() => User, (user) => user.address)
   @JoinColumn()
