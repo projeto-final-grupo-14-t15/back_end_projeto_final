@@ -12,6 +12,7 @@ export const getAllUserAnnouncementsService = async (userId: number): Promise<TA
         .where("announcement.user.id = :userId", { userId: userId })
         .leftJoinAndSelect("announcement.photos", "photos")
         .getMany();
+        
 
     return announcements;
 }
