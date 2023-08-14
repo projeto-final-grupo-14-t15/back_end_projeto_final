@@ -5,6 +5,7 @@ import {
    deleteAnnouncementController,
    updateAnnouncementController,
    filterAnnouncementController,
+   getAllUserAnnouncements,
 } from "../controllers/announcements.controllers";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middlewares";
 import {
@@ -42,5 +43,7 @@ announcementRoutes.delete(
 );
 
 announcementRoutes.get("", filterAnnouncementController);
+
+announcementRoutes.get("/byannouncer/:id", getAllUserAnnouncements)
 
 export default announcementRoutes;
