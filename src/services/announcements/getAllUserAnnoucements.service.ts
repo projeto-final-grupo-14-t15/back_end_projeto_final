@@ -10,6 +10,7 @@ export const getAllUserAnnouncementsService = async (userId: number): Promise<TA
     const announcements: TAnnouncementRequest[] = await announcementRepository
         .createQueryBuilder("announcement")
         .where("announcement.user.id = :userId", { userId: userId })
+        .leftJoinAndSelect("announcement.photos", "photos")
         .getMany();
 
     return announcements;

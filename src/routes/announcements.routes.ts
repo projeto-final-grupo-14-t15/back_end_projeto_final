@@ -47,3 +47,4 @@ announcementRoutes.get("", filterAnnouncementController);
 announcementRoutes.get("/byannouncer/:id", getAllUserAnnouncements)
 
 export default announcementRoutes;
+
