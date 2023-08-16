@@ -12,7 +12,7 @@ export const getUserInfo = async (userId:number): Promise<TUserInfo> => {
     const user:User | null= await userRepository.findOneBy({id:userId});
 
     if(!user){
-        throw new AppError('User not found',404)
+        throw new AppError('User not found',404) 
     }
 
     return userInfoSchema.parse(user);
