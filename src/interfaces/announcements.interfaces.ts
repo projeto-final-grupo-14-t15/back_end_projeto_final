@@ -4,6 +4,7 @@ import {
   announcementSchemaRequest,
   announcementSchemaResponse,
   announcementSchemaUpadate,
+  announcementsAllSchemaResponse,
 } from "../schemas/announcements.schemas";
 import exp from "constants";
 
@@ -25,10 +26,20 @@ type TAnnouncementUpdate = {
 // z.infer<typeof announcementSchemaUpadate>;
 
 type TAnnouncementResponse = z.infer<typeof announcementSchemaResponse>;
+type TannouncementsAllSchemaResponse = z.infer<typeof announcementsAllSchemaResponse>;
+
+type TPagination = {
+  data: TannouncementsAllSchemaResponse;
+  currentPage: string | null;
+  totalPages: number;
+  nextPage: string | null;
+};
 
 export {
+  TPagination,
   TAnnouncement,
   TAnnouncementRequest,
   TAnnouncementResponse,
   TAnnouncementUpdate,
+  TannouncementsAllSchemaResponse,
 };

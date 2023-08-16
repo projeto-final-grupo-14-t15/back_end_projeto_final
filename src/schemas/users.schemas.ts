@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { announcementsSchemaResponse } from "./announcements.schemas";
+import { announcementsAllSchemaResponse } from "./announcements.schemas";
 
 const userSchema = z.object({
   id: z.number().positive(),
@@ -13,7 +13,7 @@ const userSchema = z.object({
   date_of_birth: z.string(),
   createdAt: z.string(),
   updated_at: z.string(),
-  announcements: announcementsSchemaResponse,
+  announcements: announcementsAllSchemaResponse,
 });
 
 const userSchemaRequest = userSchema.omit({

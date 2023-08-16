@@ -1,32 +1,44 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-
-import { AppError } from "../../error/error";
 import { Announcement } from "../../entities/announcements.entitie";
+import { announcementSchemaResponse, announcementsAllSchemaResponse } from "../../schemas/announcements.schemas";
+import { TPagination } from "../../interfaces/announcements.interfaces";
 
 const listAnnouncementService = async (
-   announcementId: number
-): Promise<Announcement> => {
-   const announcementRepository: Repository<Announcement> =
-      AppDataSource.getRepository(Announcement);
+   page: number,
+   itemsPerPage: number,
+   serverUrl: string
+): Promise<TPagination> => {
+   const pageP: string | null = page - 1 < 1 ? null : `${serverUrl}/adverts/?page=${page - 1}&perpage=${itemsPerPage}`;
+   const nextPage: string | null = `${serverUrl}/announcement/?page=${page + 1}&perpage=${itemsPerPage}`;
 
-   const announcement: Announcement | null =
-      await announcementRepository.findOne({
-         where: {
-            id: announcementId,
-         },
-         relations: {
-            photos: true,
-         },
-      });
+   const announcementRepository: Repository<Announcement> = AppDataSource.getRepository(Announcement);
 
-   if (!announcement) {
-      throw new AppError("Announcement not found", 404);
-   }
+   const [findAndCount, totalCount] = await announcementRepository.createQueryBuilder('announcement')
+      .leftJoinAndSelect('announcement.user', 'Users')
+      .orderBy('announcement.id', 'ASC')
+      .take(itemsPerPage)
+      .skip(itemsPerPage * (page - 1))
+      .getManyAndCount();
 
-   announcement.price = Number(announcement.price);
-   announcement.km = Number(announcement.km);
+   const totalPages = Math.ceil(totalCount / itemsPerPage);
 
-   return announcement;
+   const nextAnnouncement = await announcementRepository.find({
+      take: itemsPerPage,
+      skip: itemsPerPage * page
+   });
+
+   
+   const parsedAnnouncement = announcementsAllSchemaResponse.parse(findAndCount);
+
+   const pagination: TPagination = {
+      currentPage:  pageP,
+      nextPage: nextAnnouncement.length > 0 ? nextPage : null,
+      totalPages:  totalPages,
+      data: parsedAnnouncement
+   };
+
+   return pagination;
 };
+
 export { listAnnouncementService };

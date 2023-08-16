@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
    TAnnouncementRequest,
    TAnnouncementResponse,
+   TPagination,
 } from "../interfaces/announcements.interfaces";
 import {
    announcementSchemaRequest,
@@ -18,6 +19,7 @@ import { createPhotoService } from "../services/photos/createPhotos.service";
 import { Photo } from "../entities/photos.entitie";
 import { TPhotoRequest } from "../interfaces/photos.interfaces";
 import { AppError } from "../error/error";
+import { parse } from "path";
 
 const createAnnouncementController = async (
    req: Request,
@@ -80,15 +82,16 @@ const listAnnouncementController = async (
    req: Request,
    res: Response
 ): Promise<Response> => {
-   const userId: number = Number(req.params.id);
 
-   const response = await listAnnouncementService(userId);
+   const serverUrl = `${req.protocol}://${req.get('host')}`;
+   const page = req.query.page ? parseInt(req.query.page as string) : 1;
+   const itemsPerPage = req.query.pageSize ? parseInt(req.query.pageSize as string) : 12;
+  
+   const announcement: TPagination = await listAnnouncementService(page, itemsPerPage, serverUrl);
 
-   const parsedResponse: TAnnouncementResponse =
-      announcementSchemaResponseDois.parse(response);
-
-   return res.status(200).json(parsedResponse);
+   return res.status(200).json(announcement);
 };
+
 
 const filterAnnouncementController = async (
    req: Request,
