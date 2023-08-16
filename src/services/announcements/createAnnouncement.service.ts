@@ -3,7 +3,7 @@ import { AppDataSource } from "../../data-source";
 import { TAnnouncementRequest } from "../../interfaces/announcements.interfaces";
 import { Announcement } from "../../entities/announcements.entitie";
 import { User } from "../../entities/users.entitie";
-import { AppError } from "../../error";
+import { AppError } from "../../error/error";
 
 const createAnnouncementService = async (
   announcementData: TAnnouncementRequest,
