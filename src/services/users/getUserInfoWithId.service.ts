@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/users.entitie";
-import { userSchemaRequestDois } from "../../schemas/users.schemas";
+import { userInfoSchema } from "../../schemas/users.schemas";
 import { TUserInfo } from "../../interfaces/users.interfaces";
 import { AppError } from "../../error/error";
 
@@ -15,5 +15,5 @@ export const getUserInfo = async (userId:number): Promise<TUserInfo> => {
         throw new AppError('User not found',404)
     }
 
-    return userSchemaRequestDois.parse(user);
+    return userInfoSchema.parse(user);
 }

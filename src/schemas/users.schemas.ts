@@ -39,6 +39,8 @@ const userInfoSchema = userSchema.omit({
   createdAt: true,
   password: true,
   announcements: true,
+  cpf:true,
+  dateOfBirth:true
 });
 
 export {
