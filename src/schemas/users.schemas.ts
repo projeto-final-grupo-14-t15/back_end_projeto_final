@@ -34,9 +34,19 @@ const userSchemaResponse = userSchema.omit({
   password: true,
 });
 
+const userInfoSchema = userSchema.omit({
+  updatedAt: true,
+  createdAt: true,
+  password: true,
+  announcements: true,
+  cpf:true,
+  dateOfBirth:true
+});
+
 export {
   userSchema,
   userSchemaResponse,
   userSchemaRequest,
   userSchemaRequestDois,
+  userInfoSchema
 };
