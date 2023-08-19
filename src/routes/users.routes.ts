@@ -4,6 +4,7 @@ import { updatedUserRequestSchema } from "../schemas/users.schemas";
 import {
    createUserController,
    getUserByIdController,
+   updateAddressController,
    updateUserController,
 } from "../controllers/users.controllers";
 import { checkEmailAllReadyExistsMiddlewares } from "../middlewares/checkEmailAllreadyExists.middlewares";
@@ -20,5 +21,5 @@ userRoutes.post(
 );
 userRoutes.get("/:id", getUserByIdController);
 userRoutes.patch('/:id', ensureTokenIsValidMiddlewares, ensureUserIsAllowed , checkEmailAllReadyExistsMiddlewares, ensureDataIsValidMiddleware(updatedUserRequestSchema),updateUserController)
-
+userRoutes.patch('/:id/address', ensureTokenIsValidMiddlewares, ensureUserIsAllowed ,updateAddressController)
 export default userRoutes;

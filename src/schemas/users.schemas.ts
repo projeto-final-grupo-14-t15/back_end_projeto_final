@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { announcementsSchemaResponse } from "./announcements.schemas";
+import { addressSchema } from "./address.schema";
 
 const userSchema = z.object({
   id: z.number().positive(),
@@ -14,6 +15,7 @@ const userSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   announcements: announcementsSchemaResponse,
+  address:addressSchema
 });
 
 const userSchemaRequest = userSchema.omit({
@@ -42,7 +44,8 @@ const userInfoSchema = userSchema.omit({
   password: true,
   announcements: true,
   cpf:true,
-  dateOfBirth:true
+  dateOfBirth:true,
+  address:true
 });
 
 export {

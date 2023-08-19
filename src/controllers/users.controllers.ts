@@ -17,6 +17,7 @@ import { User } from "../entities/users.entitie";
 import { createUserService } from "../services/users/createUser.service";
 import { getUserInfo } from "../services/users/getUserInfoWithId.service";
 import { updateUserService } from "../services/users/updateUser.service";
+import { updateAddressService } from "../services/users/updateAddress.service";
 
 const createUserController = async (
    req: Request,
@@ -60,4 +61,13 @@ const updateUserController = async(req:Request, res:Response):Promise<Response> 
    return res.status(200).json(returnUser)
 } 
 
-export { createUserController, getUserByIdController, updateUserController };
+const updateAddressController = async (req: Request, res: Response): Promise<Response> => {
+   const addressData = req.body;
+   const userId = Number(req.params.id);
+
+   const updatedAddress = await updateAddressService(userId, addressData);
+
+   return res.status(200).json(updatedAddress);
+}
+
+export { createUserController, getUserByIdController, updateUserController, updateAddressController };
