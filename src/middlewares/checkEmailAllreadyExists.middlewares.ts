@@ -18,7 +18,7 @@ const checkEmailAllReadyExistsMiddlewares = async (
    });
 
    if (userEmailAllReadyExists) {
-      throw new AppError("Email all ready exists", 400);
+      throw new AppError("Email already in use!", 409);
    }
 
    return next();

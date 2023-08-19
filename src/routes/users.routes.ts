@@ -1,6 +1,6 @@
 import { Router } from "express";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middlewares";
-import { updateUserRequestSchema, userSchemaRequest } from "../schemas/users.schemas";
+import { updatedUserRequestSchema } from "../schemas/users.schemas";
 import {
    createUserController,
    getUserByIdController,
@@ -8,6 +8,7 @@ import {
 } from "../controllers/users.controllers";
 import { checkEmailAllReadyExistsMiddlewares } from "../middlewares/checkEmailAllreadyExists.middlewares";
 import ensureTokenIsValidMiddlewares from "../middlewares/ensureTokenIsValid.middlewares";
+import { ensureUserIsAllowed } from "../middlewares/ensureUserIsAllowed copy";
 
 const userRoutes: Router = Router();
 
@@ -18,6 +19,6 @@ userRoutes.post(
    createUserController
 );
 userRoutes.get("/:id", getUserByIdController);
-userRoutes.patch('/:id', ensureTokenIsValidMiddlewares, ensureDataIsValidMiddleware(updateUserRequestSchema),updateUserController)
+userRoutes.patch('/:id', ensureTokenIsValidMiddlewares, ensureUserIsAllowed , checkEmailAllReadyExistsMiddlewares, ensureDataIsValidMiddleware(updatedUserRequestSchema),updateUserController)
 
 export default userRoutes;
