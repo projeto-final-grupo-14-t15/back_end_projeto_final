@@ -23,6 +23,8 @@ const userSchemaRequest = userSchema.omit({
   updatedAt: true,
 });
 
+const updateUserRequestSchema = userSchemaRequest.partial();
+
 const userSchemaRequestDois = userSchema.omit({
   updatedAt: true,
   createdAt: true,
@@ -48,5 +50,6 @@ export {
   userSchemaResponse,
   userSchemaRequest,
   userSchemaRequestDois,
-  userInfoSchema
+  userInfoSchema,
+  updateUserRequestSchema
 };

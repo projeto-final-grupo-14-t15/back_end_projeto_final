@@ -7,12 +7,15 @@ import {
    TUserResponse,
 } from "../interfaces/users.interfaces";
 import {
+   userSchema,
    userSchemaRequest,
    userSchemaRequestDois,
+   userSchemaResponse,
 } from "../schemas/users.schemas";
 import { User } from "../entities/users.entitie";
 import { createUserService } from "../services/users/createUser.service";
 import { getUserInfo } from "../services/users/getUserInfoWithId.service";
+import { updateUserService } from "../services/users/updateUser.service";
 
 const createUserController = async (
    req: Request,
@@ -43,4 +46,17 @@ const getUserByIdController = async (
    return res.status(200).json(userInfo);
 };
 
-export { createUserController, getUserByIdController };
+const updateUserController = async(req:Request, res:Response):Promise<Response> =>{
+
+   const userData = req.body;
+   const userId = Number(req.params.id)
+
+   const updatedUser = await updateUserService(userId,userData);
+
+   /* const returnUser = userSchemaResponse.parse(updatedUser[0]) */
+   const returnUser = updatedUser[0]
+
+   return res.status(200).json(returnUser)
+} 
+
+export { createUserController, getUserByIdController, updateUserController };
