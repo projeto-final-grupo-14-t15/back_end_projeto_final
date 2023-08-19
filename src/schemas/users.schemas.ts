@@ -14,8 +14,7 @@ const userSchema = z.object({
   dateOfBirth: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),
-  announcements: announcementsSchemaResponse,
-  address:addressSchema
+  announcements: announcementsSchemaResponse
 });
 
 const userSchemaRequest = userSchema.omit({
@@ -23,6 +22,10 @@ const userSchemaRequest = userSchema.omit({
   createdAt: true,
   announcements: true,
   updatedAt: true,
+});
+
+const userSchemaWithAddress = userSchema.extend({
+  address: addressSchema
 });
 
 const updatedUserRequestSchema = userSchemaRequest.partial();
@@ -54,5 +57,6 @@ export {
   userSchemaRequest,
   userSchemaRequestDois,
   userInfoSchema,
-  updatedUserRequestSchema
+  updatedUserRequestSchema,
+  userSchemaWithAddress
 };

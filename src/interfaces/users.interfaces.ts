@@ -5,6 +5,7 @@ import {
   userSchemaRequest,
   userSchemaRequestDois,
   userSchemaResponse,
+  userSchemaWithAddress,
 } from "../schemas/users.schemas";
 
 type TUser = z.infer<typeof userSchema>;
@@ -17,4 +18,6 @@ type TUserRequestDois = z.infer<typeof userSchemaRequestDois>;
 
 type TUserInfo = z.infer<typeof userInfoSchema>;
 
-export { TUser, TUserRequest, TUserResponse, TUserRequestDois,TUserInfo };
+type TUserWithAddress = z.infer<typeof userSchemaWithAddress>;
+
+export { TUser, TUserRequest, TUserResponse, TUserRequestDois,TUserInfo , TUserWithAddress};
