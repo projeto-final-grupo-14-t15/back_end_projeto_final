@@ -4,6 +4,7 @@ import {
    TAnnouncementResponse,
 } from "../interfaces/announcements.interfaces";
 import {
+   announcementSchema,
    announcementSchemaRequest,
    announcementSchemaResponse,
    announcementSchemaResponseDois,
@@ -84,8 +85,11 @@ const listAnnouncementController = async (
 
    const response = await listAnnouncementService(announcementId);
 
-/*    const parsedResponse: TAnnouncementResponse =
-      announcementSchemaResponseDois.parse(response); */
+   console.log('AQUI ESTÁ A RESPONSE ANTES DO PARSE!!!!!!')
+   console.log(response)
+   console.log('AQUI ESTÁ A RESPONSE ANTES DO PARSE!!!!!!')
+
+   const parsedResponse: TAnnouncementResponse = announcementSchemaResponseDois.parse(response);
 
    return res.status(200).json(response);
 };
