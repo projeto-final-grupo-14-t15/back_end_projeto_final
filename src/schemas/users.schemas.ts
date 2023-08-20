@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { announcementsSchemaResponse } from "./announcements.schemas";
+import { addressSchema } from "./address.schema";
 
 const userSchema = z.object({
   id: z.number().positive(),
@@ -13,7 +14,7 @@ const userSchema = z.object({
   dateOfBirth: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),
-  announcements: announcementsSchemaResponse,
+  announcements: announcementsSchemaResponse
 });
 
 const userSchemaRequest = userSchema.omit({
@@ -21,6 +22,10 @@ const userSchemaRequest = userSchema.omit({
   createdAt: true,
   announcements: true,
   updatedAt: true,
+});
+
+const userSchemaWithAddress = userSchema.extend({
+  address: addressSchema
 });
 
 const updatedUserRequestSchema = userSchemaRequest.partial();
@@ -42,7 +47,8 @@ const userInfoSchema = userSchema.omit({
   password: true,
   announcements: true,
   cpf:true,
-  dateOfBirth:true
+  dateOfBirth:true,
+  address:true
 });
 
 export {
@@ -51,5 +57,6 @@ export {
   userSchemaRequest,
   userSchemaRequestDois,
   userInfoSchema,
-  updatedUserRequestSchema
+  updatedUserRequestSchema,
+  userSchemaWithAddress
 };
