@@ -33,7 +33,6 @@ const createAnnouncementController = async (
       announcementData,
       userId
    );
-   console.log(req.body);
    const response: TAnnouncementResponse =
       announcementSchemaResponse.parse(newAnnouncement);
 
@@ -81,14 +80,14 @@ const listAnnouncementController = async (
    req: Request,
    res: Response
 ): Promise<Response> => {
-   const userId: number = Number(req.params.id);
+   const announcementId: number = Number(req.params.id);
 
-   const response = await listAnnouncementService(userId);
+   const response = await listAnnouncementService(announcementId);
 
-   const parsedResponse: TAnnouncementResponse =
-      announcementSchemaResponseDois.parse(response);
+/*    const parsedResponse: TAnnouncementResponse =
+      announcementSchemaResponseDois.parse(response); */
 
-   return res.status(200).json(parsedResponse);
+   return res.status(200).json(response);
 };
 
 const filterAnnouncementController = async (
