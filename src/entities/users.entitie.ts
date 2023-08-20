@@ -71,7 +71,9 @@ class User {
       if (!password) {
          this.password = hashSync(this.password, 10);
       }
-   }
+   };
+   @Column({type: "varchar", nullable: true})
+   reset_password: string | null;
 }
 
 export { User };

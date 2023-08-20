@@ -5,6 +5,8 @@ import {
    createUserController,
    deleteUserController,
    getUserByIdController,
+   resetPasswordController,
+   sendResetEmailPasswordControler,
    updateUserController,
 } from "../controllers/users.controllers";
 import { checkEmailAllReadyExistsMiddlewares } from "../middlewares/checkEmailAllreadyExists.middlewares";
@@ -40,4 +42,6 @@ userRoutes.delete(
    checkAccountPermision,
    deleteUserController
 );
+userRoutes.post("/resetPassword", sendResetEmailPasswordControler)
+userRoutes.patch("/resetPassword/:token", resetPasswordController)
 export default userRoutes;

@@ -18,6 +18,8 @@ import { createUserService } from "../services/users/createUser.service";
 import { getUserInfo } from "../services/users/getUserInfoWithId.service";
 import { updateUserService } from "../services/users/updateUser.service";
 import deleteUserService from "../services/users/deleteUser.service";
+import { sendResetEmailPassword } from "../services/users/SendMailReset.service";
+import resetPasswordService from "../services/users/resetpassword.services";
 
 const createUserController = async (
    req: Request,
@@ -72,5 +74,28 @@ const deleteUserController = async (
    return res.status(204).send();
 }
 
+const sendResetEmailPasswordControler = async (req: Request, res: Response) => {
+   const { email } = req.body
 
-export { createUserController, getUserByIdController, updateUserController, deleteUserController };
+   const sendmail = await sendResetEmailPassword(email)
+
+   return res.json({ message: "token send" })
+}
+
+const resetPasswordController = async (req: Request, res: Response) => {
+   const { password } = req.body
+   const { token } = req.params
+
+   await resetPasswordService(password, token)
+
+   return res.json({message: "password change with success"})
+}
+
+
+export { 
+   createUserController,
+   getUserByIdController,
+   updateUserController,
+   deleteUserController,
+   sendResetEmailPasswordControler,
+   resetPasswordController };
