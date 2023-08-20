@@ -3,6 +3,7 @@ import {
    BeforeUpdate,
    Column,
    CreateDateColumn,
+   DeleteDateColumn,
    Entity,
    JoinColumn,
    OneToMany,
@@ -32,6 +33,9 @@ class User {
    @Column({ type: "boolean", default: false })
    isAdmin: boolean;
 
+   @Column({ type: "boolean", default: false })
+   isSeller: boolean;
+
    @Column({ type: "varchar", length: 255 })
    description: string;
 
@@ -49,6 +53,9 @@ class User {
 
    @UpdateDateColumn({ type: "date" })
    updatedAt: Date | string;
+
+   @DeleteDateColumn({nullable:true})
+   deletedAt: Date | String | null | undefined;
 
    @OneToOne(() => Address, (address) => address.user, { cascade: true })
    address: Address;

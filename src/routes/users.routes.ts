@@ -3,12 +3,15 @@ import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middle
 import { updatedUserRequestSchema } from "../schemas/users.schemas";
 import {
    createUserController,
+   deleteUserController,
    getUserByIdController,
    updateUserController,
 } from "../controllers/users.controllers";
 import { checkEmailAllReadyExistsMiddlewares } from "../middlewares/checkEmailAllreadyExists.middlewares";
 import ensureTokenIsValidMiddlewares from "../middlewares/ensureTokenIsValid.middlewares";
 import { ensureUserIsAllowed } from "../middlewares/ensureUserIsAllowed copy";
+import checkUserExists from "../middlewares/checkUserExists.middleware";
+import checkAccountPermision from "../middlewares/checkAccountPermission.middleware";
 
 const userRoutes: Router = Router();
 
@@ -18,7 +21,23 @@ userRoutes.post(
    checkEmailAllReadyExistsMiddlewares,
    createUserController
 );
-userRoutes.get("/:id", getUserByIdController);
-userRoutes.patch('/:id', ensureTokenIsValidMiddlewares, ensureUserIsAllowed , checkEmailAllReadyExistsMiddlewares, ensureDataIsValidMiddleware(updatedUserRequestSchema),updateUserController)
-
+userRoutes.get(
+   "/:id",
+   getUserByIdController
+);
+userRoutes.patch(
+   "/:id",
+   ensureTokenIsValidMiddlewares,
+   ensureUserIsAllowed ,
+   checkEmailAllReadyExistsMiddlewares,
+   ensureDataIsValidMiddleware(updatedUserRequestSchema),
+   updateUserController
+);
+userRoutes.delete(
+   "/:id",
+   checkUserExists,
+   ensureTokenIsValidMiddlewares,
+   checkAccountPermision,
+   deleteUserController
+);
 export default userRoutes;

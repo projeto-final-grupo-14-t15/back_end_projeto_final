@@ -28,7 +28,7 @@ const logIn = async (data: TLoginRequest): Promise<string> => {
     throw new AppError("Invalid credentials", 401);
   }
 
-  const token = jwt.sign({ id: client.id }, String(process.env.SECRET_KEY), {
+  const token = jwt.sign({admin: client.isAdmin, id: client.id }, String(process.env.SECRET_KEY), {
     expiresIn: "24h",
     subject: String(client.id),
   });

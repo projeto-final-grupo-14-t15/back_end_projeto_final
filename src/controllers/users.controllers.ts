@@ -17,6 +17,7 @@ import { User } from "../entities/users.entitie";
 import { createUserService } from "../services/users/createUser.service";
 import { getUserInfo } from "../services/users/getUserInfoWithId.service";
 import { updateUserService } from "../services/users/updateUser.service";
+import deleteUserService from "../services/users/deleteUser.service";
 
 const createUserController = async (
    req: Request,
@@ -58,6 +59,18 @@ const updateUserController = async(req:Request, res:Response):Promise<Response> 
    
 
    return res.status(200).json(returnUser)
-} 
+};
 
-export { createUserController, getUserByIdController, updateUserController };
+const deleteUserController = async (
+   req: Request,
+   res: Response
+) : Promise<Response>=>{
+   const userId:number = Number(req.params.id);
+
+   const deletedUser = await deleteUserService(userId);
+   
+   return res.status(204).send();
+}
+
+
+export { createUserController, getUserByIdController, updateUserController, deleteUserController };
