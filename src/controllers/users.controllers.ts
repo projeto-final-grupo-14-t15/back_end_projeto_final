@@ -24,10 +24,10 @@ const createUserController = async (
    req: Request,
    res: Response
 ): Promise<Response> => {
-   if (req.body.isAdmin == "true") {
-      req.body.isAdmin = true;
-   } else if (req.body.isAdmin == "false") {
-      req.body.isAdmin = false;
+   if (req.body.isSeller == "true") {
+      req.body.isSeller = true;
+   } else if (req.body.isSeller == "false") {
+      req.body.isSeller = false;
    }
    const userData: TUserRequest = userSchemaRequest.parse(req.body);
 
