@@ -73,6 +73,7 @@ const userInfoSchema = userSchemaForUserInfo.omit({
    deletedAt: true,
    password: true,
    announcements: true,
+   address: true,
    cpf: true,
    dateOfBirth: true,
 });

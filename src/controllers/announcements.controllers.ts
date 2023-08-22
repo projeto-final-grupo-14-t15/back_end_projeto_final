@@ -8,6 +8,7 @@ import {
    announcementSchemaRequest,
    announcementSchemaResponse,
    announcementSchemaResponseDois,
+   announcementSchemaUpadate,
 } from "../schemas/announcements.schemas";
 import { Announcement } from "../entities/announcements.entitie";
 import { createAnnouncementService } from "../services/announcements/createAnnouncement.service";
@@ -20,6 +21,7 @@ import { Photo } from "../entities/photos.entitie";
 import { TPhotoRequest } from "../interfaces/photos.interfaces";
 import { AppError } from "../error/error";
 import { getAllUserAnnouncementsService } from "../services/announcements/getAllUserAnnoucements.service";
+import { updatePhotoService } from "../services/photos/updatePhotos.service";
 
 const createAnnouncementController = async (
    req: Request,
@@ -49,22 +51,54 @@ const createAnnouncementController = async (
       const newPhoto: Photo = await createPhotoService(data, response.id);
    });
 
-   return res.status(201).json(response);
+   
+   const fullResponse = await listAnnouncementService(response.id);
+
+   const parsedResponse = announcementSchemaResponseDois.parse(fullResponse);
+
+   return res.status(201).json(parsedResponse);
 };
+
+// const updateAnnouncementController = async (
+//    req: Request,
+//    res: Response
+// ): Promise<Response> => {
+//    const announcementData = req.body;
+
+//    const announcementId = Number(req.params.id);
+
+//    const newAnnouncement = await updateAnnouncementService(
+//       announcementData,
+//       announcementId
+//    );
+
+//    return res.status(200).json(newAnnouncement);
+// };
+
 const updateAnnouncementController = async (
    req: Request,
    res: Response
 ): Promise<Response> => {
    const announcementData = req.body;
-
    const announcementId = Number(req.params.id);
+   console.log('FULL2')
+   console.log(announcementData)
+   console.log('FULL2')
 
    const newAnnouncement = await updateAnnouncementService(
       announcementData,
       announcementId
    );
 
-   return res.status(200).json(newAnnouncement);
+   // Update photos if new photo URLs are provided
+   if (announcementData.photos) {
+      console.log(announcementData)
+      await updatePhotoService(newAnnouncement.id, announcementData.photos);
+   }
+
+   const parsedResponse = announcementSchemaUpadate.parse(newAnnouncement);
+
+   return res.status(200).json(parsedResponse);
 };
 
 const deleteAnnouncementController = async (

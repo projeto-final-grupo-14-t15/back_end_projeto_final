@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { photosSchemaResponse } from "./photos.schemas";
-import { userSchemaResponse, } from "./users.schemas";
+// import { userSchemaResponse, } from "./users.schemas";
 
 const announcementSchema = z.object({
    id: z.number(),
@@ -13,6 +13,7 @@ const announcementSchema = z.object({
    color: z.string().max(55),
    higherThanFipe: z.boolean(),
    price: z.number(),
+   fipePrice: z.string(),
    isActive: z.boolean().default(true),
    createdAt: z.string(),
    updatedAt: z.string(),
@@ -30,6 +31,16 @@ const announcementSchemaResponse = announcementSchema.omit({
    photos: true,
 });
 
+
+const userSchemaResponse = z.object({
+   id: z.number().positive(),
+   name: z.string().max(50),
+   email: z.string().max(155),
+   description: z.string().max(255),
+   telephone: z.string().max(25),
+});
+
+
 const announcementSchemaResponseDois = z.object({
    id: z.number(),
    brand: z.string().max(55),
@@ -41,6 +52,7 @@ const announcementSchemaResponseDois = z.object({
    color: z.string().max(55),
    higherThanFipe: z.boolean(),
    price: z.string(),
+   fipePrice: z.string(),
    isActive: z.boolean().default(true),
    createdAt: z.string(),
    updatedAt: z.string(),
@@ -48,7 +60,26 @@ const announcementSchemaResponseDois = z.object({
    user: userSchemaResponse
 });
 
-const announcementSchemaUpadate = announcementSchemaRequest.partial();
+const announcementSchemaUpdateBase = z.object({
+   // id: z.number(),
+   brand: z.string().max(55),
+   description: z.string().max(255),
+   model: z.string().max(55),
+   year: z.string().max(4),
+   km: z.number(),
+   fuel: z.string().max(55),
+   color: z.string().max(55),
+   higherThanFipe: z.boolean(),
+   price: z.number(),
+   // fipePrice: z.string(),
+   // isActive: z.boolean().default(true),
+   // createdAt: z.string(),
+   // updatedAt: z.string(),
+   photos: z.array(z.string()),
+   // user: userSchemaResponse
+});
+
+const announcementSchemaUpadate = announcementSchemaUpdateBase;
 
 const announcementsSchemaResponse = z.array(announcementSchemaResponse);
 
