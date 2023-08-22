@@ -25,14 +25,11 @@ userRoutes.post(
    checkEmailAllReadyExistsMiddlewares,
    createUserController
 );
-userRoutes.get(
-   "/:id",
-   getUserByIdController
-);
+userRoutes.get("/:id", getUserByIdController);
 userRoutes.patch(
    "/:id",
    ensureTokenIsValidMiddlewares,
-   ensureUserIsAllowed ,
+   ensureUserIsAllowed,
    ensureDataIsValidMiddleware(updatedUserRequestSchema),
    updateUserController
 );
@@ -43,9 +40,14 @@ userRoutes.delete(
    checkAccountPermision,
    deleteUserController
 );
-userRoutes.post("/resetPassword", sendResetEmailPasswordControler)
-userRoutes.patch("/resetPassword/:token", resetPasswordController)
-userRoutes.post('/:id/address', ensureTokenIsValidMiddlewares, ensureUserIsAllowed ,createAddressController);
-userRoutes.patch('/:id/address', ensureTokenIsValidMiddlewares, ensureUserIsAllowed ,updateAddressController);
+userRoutes.post("/resetPassword", sendResetEmailPasswordControler);
+userRoutes.patch("/resetPassword/:token", resetPasswordController);
+userRoutes.post("/:id/address", createAddressController);
+userRoutes.patch(
+   "/:id/address",
+   ensureTokenIsValidMiddlewares,
+   ensureUserIsAllowed,
+   updateAddressController
+);
 
 export default userRoutes;
