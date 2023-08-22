@@ -16,7 +16,7 @@ const userSchema = z.object({
    createdAt: z.string(),
    updatedAt: z.string(),
    deletedAt: z.string(),
-   announcements: announcementsSchemaResponse,
+   // announcements: announcementsSchemaResponse,
 });
 
 const userSchemaForUserInfo = z.object({
