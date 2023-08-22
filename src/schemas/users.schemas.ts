@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { announcementsSchemaResponse } from "./announcements.schemas";
 import { addressSchema } from "./address.schema";
 
 const userSchema = z.object({
@@ -6,8 +7,8 @@ const userSchema = z.object({
    name: z.string().max(50),
    email: z.string().max(155),
    password: z.string().max(255),
-   isAdmin: z.boolean(),
-   isSeller: z.boolean(),
+   isAdmin: z.boolean().default(false),
+   isSeller: z.boolean().default(false),
    description: z.string().max(255),
    telephone: z.string().max(25),
    cpf: z.string().max(15),
@@ -15,8 +16,25 @@ const userSchema = z.object({
    createdAt: z.string(),
    updatedAt: z.string(),
    deletedAt: z.string(),
-   reset_password: z.string(),
-   // announcements: announcementsSchemaResponse,
+   announcements: announcementsSchemaResponse,
+});
+
+const userSchemaForUserInfo = z.object({
+   id: z.number().positive(),
+   name: z.string().max(50),
+   email: z.string().max(155),
+   password: z.string().max(255),
+   isAdmin: z.boolean().default(false),
+   isSeller: z.boolean().default(false),
+   description: z.string().max(255),
+   telephone: z.string().max(25),
+   cpf: z.string().max(15),
+   dateOfBirth: z.string(),
+   createdAt: z.string(),
+   updatedAt: z.string(),
+   deletedAt: z.string(),
+   announcements: announcementsSchemaResponse,
+   address: addressSchema,
 });
 
 const userSchemaRequest = userSchema.omit({
@@ -41,19 +59,15 @@ const userSchemaRequestDois = userSchema.omit({
    deletedAt: true,
 });
 
-const userSchemaResponse = z.object({
-   id: z.number().positive(),
-   name: z.string().max(50),
-   email: z.string().max(155),
-   description: z.string().max(255),
-   telephone: z.string().max(25),
+const userSchemaResponse = userSchema.omit({
+   password: true,
 });
 
 const updateSchemaResponse = updatedUserRequestSchema.omit({
-   password:true
-})
+   password: true,
+});
 
-const userInfoSchema = userSchema.omit({
+const userInfoSchema = userSchemaForUserInfo.omit({
    updatedAt: true,
    createdAt: true,
    deletedAt: true,
@@ -61,16 +75,16 @@ const userInfoSchema = userSchema.omit({
    announcements: true,
    cpf: true,
    dateOfBirth: true,
-   address: true,
 });
 
 export {
-  userSchema,
-  userSchemaResponse,
-  userSchemaRequest,
-  userSchemaRequestDois,
-  userInfoSchema,
-  updatedUserRequestSchema,
-  userSchemaWithAddress,
-  updateSchemaResponse
+   userSchema,
+   userSchemaResponse,
+   userSchemaRequest,
+   userSchemaRequestDois,
+   userInfoSchema,
+   updatedUserRequestSchema,
+   userSchemaWithAddress,
+   updateSchemaResponse,
 };
+
