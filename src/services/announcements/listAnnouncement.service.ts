@@ -3,10 +3,11 @@ import { AppDataSource } from "../../data-source";
 
 import { AppError } from "../../error/error";
 import { Announcement } from "../../entities/announcements.entitie";
+import { announcementSchemaResponseDois } from "../../schemas/announcements.schemas";
 
 const listAnnouncementService = async (
    announcementId: number
-): Promise<Announcement> => {
+): Promise<any> => {
    const announcementRepository: Repository<Announcement> =
       AppDataSource.getRepository(Announcement);
 
@@ -17,16 +18,13 @@ const listAnnouncementService = async (
          },
          relations: {
             photos: true,
-            user:true
+            user: true
          },
       });
 
    if (!announcement) {
       throw new AppError("Announcement not found", 404);
    }
-
-   announcement.price = Number(announcement.price);
-   announcement.km = Number(announcement.km);
 
    return announcement;
 };
