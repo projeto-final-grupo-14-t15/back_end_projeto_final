@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { photosSchemaResponse } from "./photos.schemas";
-import { userSchemaResponse, } from "./users.schemas";
+// import { userSchemaResponse, } from "./users.schemas";
 
 const announcementSchema = z.object({
    id: z.number(),
@@ -31,6 +31,16 @@ const announcementSchemaResponse = announcementSchema.omit({
    photos: true,
 });
 
+
+const userSchemaResponse = z.object({
+   id: z.number().positive(),
+   name: z.string().max(50),
+   email: z.string().max(155),
+   description: z.string().max(255),
+   telephone: z.string().max(25),
+});
+
+
 const announcementSchemaResponseDois = z.object({
    id: z.number(),
    brand: z.string().max(55),
@@ -47,7 +57,7 @@ const announcementSchemaResponseDois = z.object({
    createdAt: z.string(),
    updatedAt: z.string(),
    photos: photosSchemaResponse,
-   // user: userSchemaResponse
+   user: userSchemaResponse
 });
 
 const announcementSchemaUpdateBase = z.object({

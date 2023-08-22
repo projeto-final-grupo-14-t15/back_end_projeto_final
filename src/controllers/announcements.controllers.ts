@@ -51,7 +51,12 @@ const createAnnouncementController = async (
       const newPhoto: Photo = await createPhotoService(data, response.id);
    });
 
-   return res.status(201).json(response);
+   
+   const fullResponse = await listAnnouncementService(response.id);
+
+   const parsedResponse = announcementSchemaResponseDois.parse(fullResponse);
+
+   return res.status(201).json(parsedResponse);
 };
 
 // const updateAnnouncementController = async (
