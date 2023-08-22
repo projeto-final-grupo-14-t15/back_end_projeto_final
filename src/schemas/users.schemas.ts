@@ -45,6 +45,10 @@ const userSchemaResponse = userSchema.omit({
   password: true,
 });
 
+const updateSchemaResponse = updatedUserRequestSchema.omit({
+   password:true
+})
+
 const userInfoSchema = userSchema.omit({
   updatedAt: true,
   createdAt: true,
@@ -63,5 +67,6 @@ export {
   userSchemaRequestDois,
   userInfoSchema,
   updatedUserRequestSchema,
-  userSchemaWithAddress
+  userSchemaWithAddress,
+  updateSchemaResponse
 };
