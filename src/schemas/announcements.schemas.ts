@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { photosSchemaResponse } from "./photos.schemas";
-import { userInfoSchema } from "./users.schemas";
+import { userSchemaResponse, } from "./users.schemas";
 
 const announcementSchema = z.object({
    id: z.number(),
@@ -29,22 +29,23 @@ const announcementSchemaRequest = announcementSchema.omit({
 const announcementSchemaResponse = announcementSchema.omit({
    photos: true,
 });
+
 const announcementSchemaResponseDois = z.object({
    id: z.number(),
    brand: z.string().max(55),
    description: z.string().max(255),
    model: z.string().max(55),
    year: z.string().max(4),
-   km: z.number(),
+   km: z.string(),
    fuel: z.string().max(55),
    color: z.string().max(55),
    higherThanFipe: z.boolean(),
-   price: z.number(),
+   price: z.string(),
    isActive: z.boolean().default(true),
    createdAt: z.string(),
    updatedAt: z.string(),
    photos: photosSchemaResponse,
-   user:userInfoSchema
+   user: userSchemaResponse
 });
 
 const announcementSchemaUpadate = announcementSchemaRequest.partial();
