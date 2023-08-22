@@ -52,6 +52,9 @@ class Announcement {
    @Column({ type: "decimal" })
    price: number;
 
+   @Column({ type: "varchar", length: 55 })
+   fipePrice: string;
+
    @CreateDateColumn({ type: "date" })
    createdAt: Date | string;
 

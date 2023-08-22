@@ -28,7 +28,7 @@ const createAnnouncementService = async (
     ...announcementData,
     user: user,
   });
-
+  
   await announcementRepository.save(announcement);
 
   return announcement;

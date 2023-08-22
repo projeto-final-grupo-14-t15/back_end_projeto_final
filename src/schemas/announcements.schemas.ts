@@ -13,6 +13,7 @@ const announcementSchema = z.object({
    color: z.string().max(55),
    higherThanFipe: z.boolean(),
    price: z.number(),
+   fipePrice: z.string(),
    isActive: z.boolean().default(true),
    createdAt: z.string(),
    updatedAt: z.string(),
@@ -41,14 +42,33 @@ const announcementSchemaResponseDois = z.object({
    color: z.string().max(55),
    higherThanFipe: z.boolean(),
    price: z.string(),
+   fipePrice: z.string(),
    isActive: z.boolean().default(true),
    createdAt: z.string(),
    updatedAt: z.string(),
    photos: photosSchemaResponse,
    user: userSchemaResponse
 });
+const announcementSchemaUpdateBase = z.object({
+   id: z.number(),
+   brand: z.string().max(55),
+   description: z.string().max(255),
+   model: z.string().max(55),
+   year: z.string().max(4),
+   km: z.number(),
+   fuel: z.string().max(55),
+   color: z.string().max(55),
+   higherThanFipe: z.boolean(),
+   price: z.number(),
+   fipePrice: z.string(),
+   isActive: z.boolean().default(true),
+   createdAt: z.string(),
+   updatedAt: z.string(),
+   photos: z.array(z.string()),
+   user: userSchemaResponse
+});
 
-const announcementSchemaUpadate = announcementSchemaRequest.partial();
+const announcementSchemaUpadate = announcementSchemaUpdateBase.partial();
 
 const announcementsSchemaResponse = z.array(announcementSchemaResponse);
 

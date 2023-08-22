@@ -12,10 +12,14 @@ const updateAnnouncementService = async (
    const announcementRepository: Repository<Announcement> =
       AppDataSource.getRepository(Announcement);
 
-   const oldAnnouncement = (await announcementRepository.findOne({
-      where: { id: idAnnouncement },
-      relations: ["user"],
-   })) as Announcement;
+      const oldAnnouncement = (await announcementRepository.findOne({
+         where: { id: idAnnouncement },
+         relations: ["user"],
+      })) as Announcement;
+
+   if (!oldAnnouncement) {
+      throw new AppError(`Announcement with id ${idAnnouncement} not found.`, 404);
+   }
 
    const updatedAnnouncement: Announcement = {
       ...oldAnnouncement,
