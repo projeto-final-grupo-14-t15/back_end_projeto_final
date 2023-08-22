@@ -89,9 +89,9 @@ const listAnnouncementController = async (
    console.log(response)
    console.log('AQUI ESTÁ A RESPONSE ANTES DO PARSE!!!!!!')
 
-   const parsedResponse: TAnnouncementResponse = announcementSchemaResponseDois.parse(response);
+   const parsedResponse = announcementSchemaResponseDois.parse(response);
 
-   return res.status(200).json(response);
+   return res.status(200).json(parsedResponse);
 };
 
 const filterAnnouncementController = async (

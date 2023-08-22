@@ -2,6 +2,7 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Announcement } from "../../entities/announcements.entitie";
 import { ParsedQs } from "qs";
+import { announcementSchemaResponseDois } from "../../schemas/announcements.schemas";
 
 const filterAnnouncementService = async (
    brand: string | string[] | ParsedQs | ParsedQs[] | undefined,
@@ -13,7 +14,7 @@ const filterAnnouncementService = async (
    maxPrice: string | string[] | ParsedQs | ParsedQs[] | undefined,
    minKm: string | string[] | ParsedQs | ParsedQs[] | undefined,
    maxKm: string | string[] | ParsedQs | ParsedQs[] | undefined
-): Promise<Announcement[]> => {
+): Promise<any[]> => {
    const personRepository: Repository<Announcement> =
       AppDataSource.getRepository(Announcement);
 
@@ -57,6 +58,9 @@ const filterAnnouncementService = async (
       .leftJoinAndSelect("announcements.user", "user")
       .getMany();
 
-   return dataFiltered;
+
+   const parsedResponse = announcementSchemaResponseDois.array().parse(dataFiltered);
+
+   return parsedResponse;
 };
 export { filterAnnouncementService };
