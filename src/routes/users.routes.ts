@@ -33,7 +33,6 @@ userRoutes.patch(
    "/:id",
    ensureTokenIsValidMiddlewares,
    ensureUserIsAllowed ,
-   checkEmailAllReadyExistsMiddlewares,
    ensureDataIsValidMiddleware(updatedUserRequestSchema),
    updateUserController
 );

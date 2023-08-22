@@ -5,6 +5,7 @@ import {
       TUserRequestDois,
 } from "../interfaces/users.interfaces";
 import {
+   updateSchemaResponse,
      updatedUserRequestSchema,
      userSchemaRequest,
      userSchemaRequestDois,
@@ -55,7 +56,7 @@ const updateUserController = async(req:Request, res:Response):Promise<Response> 
 
       const updatedUser = await updateUserService(userId,userData);
 
-      const returnUser = updatedUserRequestSchema.parse(updatedUser[0]) 
+      const returnUser = updateSchemaResponse.parse(updatedUser[0]) 
       
 
       return res.status(200).json(returnUser)

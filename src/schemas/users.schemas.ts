@@ -49,6 +49,10 @@ const userSchemaResponse = z.object({
    telephone: z.string().max(25),
 });
 
+const updateSchemaResponse = updatedUserRequestSchema.omit({
+   password:true
+})
+
 const userInfoSchema = userSchema.omit({
    updatedAt: true,
    createdAt: true,
@@ -61,11 +65,12 @@ const userInfoSchema = userSchema.omit({
 });
 
 export {
-   userSchema,
-   userSchemaResponse,
-   userSchemaRequest,
-   userSchemaRequestDois,
-   userInfoSchema,
-   updatedUserRequestSchema,
-   userSchemaWithAddress,
+  userSchema,
+  userSchemaResponse,
+  userSchemaRequest,
+  userSchemaRequestDois,
+  userInfoSchema,
+  updatedUserRequestSchema,
+  userSchemaWithAddress,
+  updateSchemaResponse
 };
