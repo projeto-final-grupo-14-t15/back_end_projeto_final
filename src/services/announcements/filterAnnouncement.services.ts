@@ -10,10 +10,10 @@ const filterAnnouncementService = async (
    color: string | string[] | ParsedQs | ParsedQs[] | undefined,
    year: string | string[] | ParsedQs | ParsedQs[] | undefined,
    fuel: string | string[] | ParsedQs | ParsedQs[] | undefined,
-   minPrice: string | string[] | ParsedQs | ParsedQs[] | undefined,
-   maxPrice: string | string[] | ParsedQs | ParsedQs[] | undefined,
-   minKm: string | string[] | ParsedQs | ParsedQs[] | undefined,
-   maxKm: string | string[] | ParsedQs | ParsedQs[] | undefined
+   minPrice: string | string[] | ParsedQs | ParsedQs[] | undefined | number,
+   maxPrice: string | string[] | ParsedQs | ParsedQs[] | undefined | number,
+   minKm: string | string[] | ParsedQs | ParsedQs[] | undefined | number,
+   maxKm: string | string[] | ParsedQs | ParsedQs[] | undefined | number
 ): Promise<any[]> => {
    const personRepository: Repository<Announcement> =
       AppDataSource.getRepository(Announcement);
