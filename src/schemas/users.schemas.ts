@@ -63,6 +63,12 @@ const userSchemaResponse = userSchema.omit({
    password: true,
 });
 
+const updateUserSchemaRequest = userSchemaRequest.omit({
+   isAdmin:true,
+   isSeller:true,
+   id:true,
+});
+
 const updateSchemaResponse = updatedUserRequestSchema.omit({
    password: true,
 });
@@ -87,5 +93,6 @@ export {
    updatedUserRequestSchema,
    userSchemaWithAddress,
    updateSchemaResponse,
+   updateUserSchemaRequest
 };
 
