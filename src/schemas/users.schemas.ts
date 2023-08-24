@@ -64,9 +64,9 @@ const userSchemaResponse = userSchema.omit({
 });
 
 const updateUserSchemaRequest = userSchemaRequest.omit({
-   isAdmin:true,
-   isSeller:true,
-   id:true,
+   isAdmin: true,
+   isSeller: true,
+   id: true,
 });
 
 const updateSchemaResponse = updatedUserRequestSchema.omit({
@@ -79,7 +79,6 @@ const userInfoSchema = userSchemaForUserInfo.omit({
    deletedAt: true,
    password: true,
    announcements: true,
-   address: true,
    cpf: true,
    dateOfBirth: true,
 });
@@ -93,6 +92,5 @@ export {
    updatedUserRequestSchema,
    userSchemaWithAddress,
    updateSchemaResponse,
-   updateUserSchemaRequest
+   updateUserSchemaRequest,
 };
-
