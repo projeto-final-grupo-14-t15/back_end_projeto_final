@@ -1,10 +1,10 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { TUserRequest } from "../../interfaces/users.interfaces";
+import { TUpdateUserRequest } from "../../interfaces/users.interfaces";
 import { User } from "../../entities/users.entitie";
 import { AppError } from "../../error/error";
 
-export const updateUserService = async (userId:number,userData:TUserRequest): Promise<User[]> => {
+export const updateUserService = async (userId:number,userData:TUpdateUserRequest): Promise<User[]> => {
 
     const userRepository:Repository<User> = AppDataSource.getRepository(User);
 
@@ -14,9 +14,31 @@ export const updateUserService = async (userId:number,userData:TUserRequest): Pr
         throw new AppError('User not found',404)
     }
 
-    await userRepository.save({id:userId, ...userData});
+    const updatedData: Partial<User> = {};
+    const updatableFields: (keyof TUpdateUserRequest)[] = [
+        "name",
+        "email",
+        "description",
+        "telephone",
+        "cpf",
+        "dateOfBirth",
+    ];
 
-    const updatedUserInfo:User[] = await userRepository.find({where: {id:userId}});
+    updatableFields.forEach((field) => {
+        const value = userData[field];
+
+        if (value !== undefined && value.trim() !== "") {
+            updatedData[field] = value.trim();
+        }
+    });
+
+    if (Object.keys(updatedData).length === 0) {
+        return [user];
+    }
+
+    await userRepository.update(userId, updatedData);
+
+    const updatedUserInfo: User[] = await userRepository.find({ where: { id: userId } });
 
     return updatedUserInfo;
 }
