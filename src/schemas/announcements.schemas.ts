@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { photosSchemaResponse } from "./photos.schemas";
-// import { userSchemaResponse, } from "./users.schemas";
 
 const announcementSchema = z.object({
    id: z.number(),
@@ -61,7 +60,6 @@ const announcementSchemaResponseDois = z.object({
 });
 
 const announcementSchemaUpdateBase = z.object({
-   // id: z.number(),
    brand: z.string().max(55),
    description: z.string().max(255),
    model: z.string().max(55),
@@ -71,12 +69,8 @@ const announcementSchemaUpdateBase = z.object({
    color: z.string().max(55),
    higherThanFipe: z.boolean(),
    price: z.number(),
-   // fipePrice: z.string(),
-   // isActive: z.boolean().default(true),
-   // createdAt: z.string(),
-   // updatedAt: z.string(),
+   isActive: z.boolean().default(true),
    photos: z.array(z.string()),
-   // user: userSchemaResponse
 });
 
 const announcementSchemaUpadate = announcementSchemaUpdateBase;

@@ -14,9 +14,7 @@ const deleteAnnouncementService = async (Id: number): Promise<void> => {
       },
    });
 
-   // Delete existing photos
    await Promise.all(existingPhotos.map(photo => photoRepository.delete(photo.id)));
-
 
     await AppDataSource.getRepository(Announcement)
     .createQueryBuilder("announcements")

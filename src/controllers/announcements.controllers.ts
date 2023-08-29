@@ -59,38 +59,17 @@ const createAnnouncementController = async (
    return res.status(201).json(parsedResponse);
 };
 
-// const updateAnnouncementController = async (
-//    req: Request,
-//    res: Response
-// ): Promise<Response> => {
-//    const announcementData = req.body;
-
-//    const announcementId = Number(req.params.id);
-
-//    const newAnnouncement = await updateAnnouncementService(
-//       announcementData,
-//       announcementId
-//    );
-
-//    return res.status(200).json(newAnnouncement);
-// };
-
 const updateAnnouncementController = async (
    req: Request,
    res: Response
 ): Promise<Response> => {
    const announcementData = req.body;
    const announcementId = Number(req.params.id);
-   console.log('FULL2')
-   console.log(announcementData)
-   console.log('FULL2')
-
    const newAnnouncement = await updateAnnouncementService(
       announcementData,
       announcementId
    );
 
-   // Update photos if new photo URLs are provided
    if (announcementData.photos) {
       console.log(announcementData)
       await updatePhotoService(newAnnouncement.id, announcementData.photos);
@@ -118,10 +97,6 @@ const listAnnouncementController = async (
    const announcementId: number = Number(req.params.id);
 
    const response = await listAnnouncementService(announcementId);
-
-   console.log('AQUI ESTÁ A RESPONSE ANTES DO PARSE!!!!!!')
-   console.log(response)
-   console.log('AQUI ESTÁ A RESPONSE ANTES DO PARSE!!!!!!')
 
    const parsedResponse = announcementSchemaResponseDois.parse(response);
 

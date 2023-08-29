@@ -18,10 +18,8 @@ const updatePhotoService = async (
       },
    });
 
-   // Delete existing photos
    await Promise.all(existingPhotos.map(photo => photoRepository.delete(photo.id)));
 
-   // Create new photos
    await Promise.all(newPhotoUrls.map(async photoUrl => {
       const newPhoto: Photo = photoRepository.create({
          link: photoUrl,
