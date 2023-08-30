@@ -46,7 +46,7 @@ export const resetPasswordTemplate = (userEmail: string, userName: string,  rese
                 button: {
                     color: '#4529E6',
                     text: 'Redefinir sua senha',
-                    link: `http://localhost:3000/passwordRecovery/${resetToken}`
+                    link: `http://localhost:5173/recoverypassword/${resetToken}`
                 }
             },
             outro: 'Se você não solicitou uma redefinição de senha, basta ignorar este e-mail.'
