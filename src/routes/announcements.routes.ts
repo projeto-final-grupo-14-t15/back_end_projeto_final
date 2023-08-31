@@ -7,6 +7,9 @@ import {
    filterAnnouncementController,
    getAllUserAnnouncements,
    createCommentAnnouncements,
+   getCommentsByAnnouncement,
+   updateComment,
+   deleteComment,
 } from "../controllers/announcements.controllers";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middlewares";
 import {
@@ -53,6 +56,18 @@ announcementRoutes.post(
    ensureTokenIsValidMiddlewares,
    ensureDataIsValidMiddleware(commentSchemaRequest),
    createCommentAnnouncements
+);
+announcementRoutes.get(
+   "/:id/comment",
+   getCommentsByAnnouncement
+);
+announcementRoutes.patch(
+   "/:id/comment/:commentId",
+   updateComment
+);
+announcementRoutes.delete(
+   "/:id/comment/:commentId",
+   deleteComment
 );
 
 export default announcementRoutes;

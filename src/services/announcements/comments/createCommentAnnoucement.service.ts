@@ -1,10 +1,10 @@
 import { Repository } from "typeorm";
-import { AppDataSource } from "../../data-source";
-import { TAnnouncementRequest } from "../../interfaces/announcements.interfaces";
-import { Announcement } from "../../entities/announcements.entitie";
-import { User } from "../../entities/users.entitie";
-import { AppError } from "../../error/error";
-import { Comment } from "../../entities/comment.entitie";
+import { AppDataSource } from "../../../data-source";
+import { TAnnouncementRequest } from "../../../interfaces/announcements.interfaces";
+import { Announcement } from "../../../entities/announcements.entitie";
+import { User } from "../../../entities/users.entitie";
+import { AppError } from "../../../error/error";
+import { Comment } from "../../../entities/comment.entitie";
 
 const createCommentAnnouncementService = async (
    commentData: any,

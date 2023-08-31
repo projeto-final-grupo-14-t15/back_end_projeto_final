@@ -22,16 +22,22 @@ import { TPhotoRequest } from "../interfaces/photos.interfaces";
 import { AppError } from "../error/error";
 import { getAllUserAnnouncementsService } from "../services/announcements/getAllUserAnnoucements.service";
 import { updatePhotoService } from "../services/photos/updatePhotos.service";
-import { createCommentAnnouncementService } from "../services/announcements/createCommentAnnoucement.service";
+import { createCommentAnnouncementService } from "../services/announcements/comments/createCommentAnnoucement.service";
 import {
    commentSchema,
    commentSchemaRequest,
 } from "../schemas/commentAnnouncements.schemas";
+import { getCommentsByAnnouncementService } from "../services/announcements/comments/listAnnouncementComments.service";
+import { deleteCommentService } from "../services/announcements/comments/deleteComment.service";
+import { updateCommentService } from "../services/announcements/comments/updateComment.service";
 
 const createAnnouncementController = async (
    req: Request,
    res: Response
 ): Promise<Response> => {
+   
+   console.log('pelo menos aqui chega esse lixo')
+
    const announcementData: TAnnouncementRequest =
       announcementSchemaRequest.parse(req.body);
 
@@ -164,6 +170,40 @@ const createCommentAnnouncements = async (
    return res.status(201).json(parsedResponse);
 };
 
+const getCommentsByAnnouncement = async (
+   req: Request,
+   res: Response
+): Promise<Response> => {
+   const announcementId: number = Number(req.params.id);
+
+   const comments = await getCommentsByAnnouncementService(announcementId);
+
+   return res.status(200).json(comments);
+};
+
+const updateComment = async (
+   req: Request,
+   res: Response
+): Promise<Response> => {
+   const commentId: number = Number(req.params.commentId);
+   const updatedData = req.body;
+
+   const updatedComment = await updateCommentService(commentId, updatedData);
+
+   return res.status(201).json(updatedComment)
+};
+
+const deleteComment = async (
+   req: Request,
+   res: Response
+): Promise<Response> => {
+   const commentId: number = Number(req.params.commentId);
+
+   await deleteCommentService(commentId);
+
+   return res.status(204).send(); // No content
+};
+
 export {
    createAnnouncementController,
    updateAnnouncementController,
@@ -172,4 +212,7 @@ export {
    filterAnnouncementController,
    getAllUserAnnouncements,
    createCommentAnnouncements,
+   getCommentsByAnnouncement,
+   updateComment,
+   deleteComment
 };
