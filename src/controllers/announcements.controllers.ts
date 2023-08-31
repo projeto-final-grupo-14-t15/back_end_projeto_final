@@ -22,6 +22,11 @@ import { TPhotoRequest } from "../interfaces/photos.interfaces";
 import { AppError } from "../error/error";
 import { getAllUserAnnouncementsService } from "../services/announcements/getAllUserAnnoucements.service";
 import { updatePhotoService } from "../services/photos/updatePhotos.service";
+import { createCommentAnnouncementService } from "../services/announcements/createCommentAnnoucement.service";
+import {
+   commentSchema,
+   commentSchemaRequest,
+} from "../schemas/commentAnnouncements.schemas";
 
 const createAnnouncementController = async (
    req: Request,
@@ -51,7 +56,6 @@ const createAnnouncementController = async (
       const newPhoto: Photo = await createPhotoService(data, response.id);
    });
 
-   
    const fullResponse = await listAnnouncementService(response.id);
 
    const parsedResponse = announcementSchemaResponseDois.parse(fullResponse);
@@ -71,7 +75,7 @@ const updateAnnouncementController = async (
    );
 
    if (announcementData.photos) {
-      console.log(announcementData)
+      console.log(announcementData);
       await updatePhotoService(newAnnouncement.id, announcementData.photos);
    }
 
@@ -98,9 +102,9 @@ const listAnnouncementController = async (
 
    const response = await listAnnouncementService(announcementId);
 
-   const parsedResponse = announcementSchemaResponseDois.parse(response);
+   // const parsedResponse = announcementSchemaResponseDois.parse(response);
 
-   return res.status(200).json(parsedResponse);
+   return res.status(200).json(response);
 };
 
 const filterAnnouncementController = async (
@@ -125,13 +129,39 @@ const filterAnnouncementController = async (
    return res.status(200).json(listAnnouncement);
 };
 
-const getAllUserAnnouncements = async (req: Request, res: Response): Promise<Response> => {
-
+const getAllUserAnnouncements = async (
+   req: Request,
+   res: Response
+): Promise<Response> => {
    const userId = Number(req.params.id);
- 
-   const userAnnouncements: TAnnouncementRequest[] = await getAllUserAnnouncementsService(userId);
- 
+
+   const userAnnouncements: TAnnouncementRequest[] =
+      await getAllUserAnnouncementsService(userId);
+
    return res.status(200).json(userAnnouncements);
+};
+
+const createCommentAnnouncements = async (
+   req: Request,
+   res: Response
+): Promise<Response> => {
+   const commentData = req.body;
+
+   const userId = res.locals.token.id;
+
+   const announcementId: number = Number(req.params.id);
+
+   const response = await createCommentAnnouncementService(
+      commentData,
+      userId,
+      announcementId
+   );
+
+   console.log(response);
+
+   const parsedResponse = commentSchema.parse(response);
+
+   return res.status(201).json(parsedResponse);
 };
 
 export {
@@ -140,6 +170,6 @@ export {
    deleteAnnouncementController,
    listAnnouncementController,
    filterAnnouncementController,
-   getAllUserAnnouncements
+   getAllUserAnnouncements,
+   createCommentAnnouncements,
 };
-
