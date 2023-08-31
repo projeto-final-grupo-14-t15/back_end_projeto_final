@@ -2,10 +2,11 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../../data-source";
 import { Comment } from "../../../entities/comment.entitie";
 import { AppError } from "../../../error/error";
+import { TComment } from "../../../interfaces/announcements.interfaces";
 
 const updateCommentService = async (
    commentId: number,
-   updatedData: any
+   updatedData: TComment
 ) => {
    const commentRepository: Repository<Comment> =
       AppDataSource.getRepository(Comment);
@@ -16,12 +17,12 @@ const updateCommentService = async (
         },
      });
 
-   if (!comment) {
+   if (comment === null || comment === undefined) {
       throw new AppError(`Comment with id ${commentId} not found.`, 404);
    }
 
-   comment.text = updatedData.text; // Assuming you want to update the 'text' field
-   comment.update_date = new Date().toISOString(); // Update the update_date field
+   comment.text = updatedData.text; 
+   comment.update_date = new Date().toISOString(); 
 
    const newComment = await commentRepository.save(comment);
 

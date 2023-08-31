@@ -49,7 +49,6 @@ const filterAnnouncementService = async (
    }
 
    if (minKm) {
-      console.log(minKm);
       query = query.andWhere("announcements.km  >= :minKm", { minKm });
    }
 

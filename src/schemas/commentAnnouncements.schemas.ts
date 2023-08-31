@@ -1,8 +1,6 @@
 import { z } from "zod";
 import { userInfoSchema } from "./users.schemas";
 import {
-   announcementSchema,
-   announcementSchemaResponse,
    announcementSchemaResponseDois,
 } from "./announcements.schemas";
 
@@ -29,4 +27,6 @@ const commentSchemaRequest = commentSchema.omit({
    update_date: true,
 });
 
-export { commentSchemaRequest, commentSchema };
+const updateCommentSchema = commentSchemaRequest.extend({}).partial();
+
+export { commentSchemaRequest, commentSchema, updateCommentSchema };

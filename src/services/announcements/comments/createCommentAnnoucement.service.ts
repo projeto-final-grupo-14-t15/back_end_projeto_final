@@ -1,13 +1,13 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../../data-source";
-import { TAnnouncementRequest } from "../../../interfaces/announcements.interfaces";
 import { Announcement } from "../../../entities/announcements.entitie";
 import { User } from "../../../entities/users.entitie";
 import { AppError } from "../../../error/error";
 import { Comment } from "../../../entities/comment.entitie";
+import { TComment } from "../../../interfaces/announcements.interfaces";
 
 const createCommentAnnouncementService = async (
-   commentData: any,
+   commentData: TComment,
    idUser: number,
    idAnnoucement: number
 ) => {
@@ -48,9 +48,6 @@ const createCommentAnnouncementService = async (
       announcement: announcement,
    });
 
-   console.log("\n");
-   console.log(comment);
-   console.log("\n");
 
    await commentRepository.save(comment);
 

@@ -3,9 +3,8 @@ import {
   announcementSchema,
   announcementSchemaRequest,
   announcementSchemaResponse,
-  announcementSchemaUpadate,
 } from "../schemas/announcements.schemas";
-import exp from "constants";
+import { commentSchema, updateCommentSchema } from "../schemas/commentAnnouncements.schemas";
 
 type TAnnouncement = z.infer<typeof announcementSchema>;
 
@@ -23,13 +22,19 @@ type TAnnouncementUpdate = {
   price?: number;
   isActive?: boolean;
 };
-// z.infer<typeof announcementSchemaUpadate>;
 
 type TAnnouncementResponse = z.infer<typeof announcementSchemaResponse>;
+
+type TComment = z.infer<typeof commentSchema>
+
+type TCommentUpdate = z.infer<typeof updateCommentSchema>
 
 export {
   TAnnouncement,
   TAnnouncementRequest,
   TAnnouncementResponse,
   TAnnouncementUpdate,
+  TComment,
+  TCommentUpdate,
+  updateCommentSchema
 };

@@ -22,11 +22,6 @@ const checkIsOwnerAnnoucemntsMiddlewares = async (
 
    const userOwnerAnnoucement = announcement.user;
 
-   console.log("\n");
-   console.log(userId);
-   console.log(userOwnerAnnoucement.id);
-   console.log("\n");
-
    if (userId !== userOwnerAnnoucement.id) {
       throw new AppError(
          `You don't have permission to edit this announcement.`,

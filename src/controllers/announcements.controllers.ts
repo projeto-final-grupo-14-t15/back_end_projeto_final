@@ -35,8 +35,7 @@ const createAnnouncementController = async (
    req: Request,
    res: Response
 ): Promise<Response> => {
-   
-   console.log('pelo menos aqui chega esse lixo')
+
 
    const announcementData: TAnnouncementRequest =
       announcementSchemaRequest.parse(req.body);
@@ -81,7 +80,6 @@ const updateAnnouncementController = async (
    );
 
    if (announcementData.photos) {
-      console.log(announcementData);
       await updatePhotoService(newAnnouncement.id, announcementData.photos);
    }
 
@@ -162,8 +160,6 @@ const createCommentAnnouncements = async (
       userId,
       announcementId
    );
-
-   console.log(response);
 
    const parsedResponse = commentSchema.parse(response);
 
