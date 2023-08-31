@@ -16,6 +16,7 @@ import { getRounds, hashSync } from "bcryptjs";
 import { Address } from "./address.entitie";
 import { User } from "./users.entitie";
 import { Photo } from "./photos.entitie";
+import { Comment } from "./comment.entitie";
 
 @Entity("announcements")
 class Announcement {
@@ -46,7 +47,7 @@ class Announcement {
    @Column({ type: "boolean" })
    higherThanFipe: boolean;
 
-   @Column({ type: "boolean", default: true  })
+   @Column({ type: "boolean", default: true })
    isActive: boolean;
 
    @Column({ type: "decimal" })
@@ -67,6 +68,9 @@ class Announcement {
 
    @OneToMany(() => Photo, (photo) => photo.announcement, { cascade: true })
    photos: Photo[];
+
+   @OneToMany(() => Comment, (comment) => comment.announcement)
+   comments: Comment[];
 }
 
 export { Announcement };

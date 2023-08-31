@@ -6,6 +6,7 @@ import {
    updateAnnouncementController,
    filterAnnouncementController,
    getAllUserAnnouncements,
+   createCommentAnnouncements,
 } from "../controllers/announcements.controllers";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middlewares";
 import {
@@ -15,6 +16,7 @@ import {
 import { checkAnnouncementExistByIdMiddlewares } from "../middlewares/checkAnnouncementsExistById.middlewares";
 import { checkIsOwnerAnnoucemntsMiddlewares } from "../middlewares/userIsOwnerAnnoucement.middlewares";
 import ensureTokenIsValidMiddlewares from "../middlewares/ensureTokenIsValid.middlewares";
+import { commentSchemaRequest } from "../schemas/commentAnnouncements.schemas";
 
 const announcementRoutes: Router = Router();
 
@@ -44,7 +46,13 @@ announcementRoutes.delete(
 
 announcementRoutes.get("", filterAnnouncementController);
 
-announcementRoutes.get("/byannouncer/:id", getAllUserAnnouncements)
+announcementRoutes.get("/byannouncer/:id", getAllUserAnnouncements);
+
+announcementRoutes.post(
+   "/:id/comment",
+   ensureTokenIsValidMiddlewares,
+   ensureDataIsValidMiddleware(commentSchemaRequest),
+   createCommentAnnouncements
+);
 
 export default announcementRoutes;
-

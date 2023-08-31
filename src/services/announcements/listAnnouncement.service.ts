@@ -18,7 +18,8 @@ const listAnnouncementService = async (
          },
          relations: {
             photos: true,
-            user: true
+            user: true,
+            comments: true,
          },
       });
 
