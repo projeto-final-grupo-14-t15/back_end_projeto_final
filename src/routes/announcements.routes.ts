@@ -13,13 +13,13 @@ import {
 } from "../controllers/announcements.controllers";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middlewares";
 import {
-   announcementSchemaRequest,
    announcementSchemaUpadate,
 } from "../schemas/announcements.schemas";
 import { checkAnnouncementExistByIdMiddlewares } from "../middlewares/checkAnnouncementsExistById.middlewares";
 import { checkIsOwnerAnnoucemntsMiddlewares } from "../middlewares/userIsOwnerAnnoucement.middlewares";
 import ensureTokenIsValidMiddlewares from "../middlewares/ensureTokenIsValid.middlewares";
 import { commentSchemaRequest } from "../schemas/commentAnnouncements.schemas";
+import { checkCommentOwner } from "../middlewares/isUserCommentOwner.middleware";
 
 const announcementRoutes: Router = Router();
 
@@ -63,10 +63,14 @@ announcementRoutes.get(
 );
 announcementRoutes.patch(
    "/:id/comment/:commentId",
+   ensureTokenIsValidMiddlewares,
+   checkCommentOwner,
    updateComment
 );
 announcementRoutes.delete(
    "/:id/comment/:commentId",
+   ensureTokenIsValidMiddlewares,
+   checkCommentOwner,
    deleteComment
 );
 
