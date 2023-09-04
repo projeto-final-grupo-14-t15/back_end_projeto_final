@@ -30,13 +30,12 @@ import {
 import { getCommentsByAnnouncementService } from "../services/announcements/comments/listAnnouncementComments.service";
 import { deleteCommentService } from "../services/announcements/comments/deleteComment.service";
 import { updateCommentService } from "../services/announcements/comments/updateComment.service";
+import { getCommentsByIdService } from "../services/announcements/comments/listCommentById";
 
 const createAnnouncementController = async (
    req: Request,
    res: Response
 ): Promise<Response> => {
-
-
    const announcementData: TAnnouncementRequest =
       announcementSchemaRequest.parse(req.body);
 
@@ -186,7 +185,7 @@ const updateComment = async (
 
    const updatedComment = await updateCommentService(commentId, updatedData);
 
-   return res.status(201).json(updatedComment)
+   return res.status(201).json(updatedComment);
 };
 
 const deleteComment = async (
@@ -197,7 +196,18 @@ const deleteComment = async (
 
    await deleteCommentService(commentId);
 
-   return res.status(204).send(); // No content
+   return res.status(204).send();
+};
+
+const listCommentById = async (
+   req: Request,
+   res: Response
+): Promise<Response> => {
+   const commentId: number = Number(req.params.id);
+
+   const comment = await getCommentsByIdService(commentId);
+
+   return res.status(200).json(comment);
 };
 
 export {
@@ -210,5 +220,6 @@ export {
    createCommentAnnouncements,
    getCommentsByAnnouncement,
    updateComment,
-   deleteComment
+   deleteComment,
+   listCommentById,
 };
