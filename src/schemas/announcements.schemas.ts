@@ -30,7 +30,6 @@ const announcementSchemaResponse = announcementSchema.omit({
    photos: true,
 });
 
-
 const userSchemaResponse = z.object({
    id: z.number().positive(),
    name: z.string().max(50),
@@ -38,7 +37,6 @@ const userSchemaResponse = z.object({
    description: z.string().max(255),
    telephone: z.string().max(25),
 });
-
 
 const announcementSchemaResponseDois = z.object({
    id: z.number(),
@@ -56,7 +54,7 @@ const announcementSchemaResponseDois = z.object({
    createdAt: z.string(),
    updatedAt: z.string(),
    photos: photosSchemaResponse,
-   user: userSchemaResponse
+   user: userSchemaResponse,
 });
 
 const announcementSchemaUpdateBase = z.object({

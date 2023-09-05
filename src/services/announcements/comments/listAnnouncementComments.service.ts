@@ -3,19 +3,17 @@ import { AppDataSource } from "../../../data-source";
 import { Comment } from "../../../entities/comment.entitie";
 import { AppError } from "../../../error/error";
 
-const getCommentsByAnnouncementService = async (
-   announcementId: number
-) => {
+const getCommentsByAnnouncementService = async (announcementId: number) => {
    const commentRepository: Repository<Comment> =
       AppDataSource.getRepository(Comment);
 
    const comments = await commentRepository.find({
       where: {
          announcement: {
-            id: announcementId
-         }
+            id: announcementId,
+         },
       },
-      relations: ["author"]
+      relations: ["author"],
    });
 
    if (!comments || comments.length === 0) {

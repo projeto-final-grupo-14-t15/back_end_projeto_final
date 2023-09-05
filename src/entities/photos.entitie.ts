@@ -1,19 +1,13 @@
 import {
-  BeforeInsert,
-  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 
-import { getRounds, hashSync } from "bcryptjs";
-import { Address } from "./address.entitie";
-import { User } from "./users.entitie";
 import { Announcement } from "./announcements.entitie";
 
 @Entity("photos")
