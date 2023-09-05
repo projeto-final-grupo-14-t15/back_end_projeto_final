@@ -59,13 +59,13 @@ announcementRoutes.post(
 announcementRoutes.get("/:id/comment", getCommentsByAnnouncement);
 
 announcementRoutes.patch(
-   "/:id/comment/:commentId",
+   "/comment/:commentId",
    ensureTokenIsValidMiddlewares,
    checkCommentOwner,
    updateComment
 );
 announcementRoutes.delete(
-   "/:id/comment/:commentId",
+   "/comment/:commentId",
    ensureTokenIsValidMiddlewares,
    checkCommentOwner,
    deleteComment
