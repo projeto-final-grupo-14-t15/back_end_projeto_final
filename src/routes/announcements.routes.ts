@@ -57,6 +57,7 @@ announcementRoutes.post(
    createCommentAnnouncements
 );
 announcementRoutes.get("/:id/comment", getCommentsByAnnouncement);
+
 announcementRoutes.patch(
    "/comment/:commentId",
    ensureTokenIsValidMiddlewares,

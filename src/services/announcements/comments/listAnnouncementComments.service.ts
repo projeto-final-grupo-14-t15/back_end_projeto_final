@@ -15,7 +15,7 @@ const getCommentsByAnnouncementService = async (
             id: announcementId
          }
       },
-      relations: ["author"],
+      relations: ["author"]
    });
 
    if (!comments || comments.length === 0) {

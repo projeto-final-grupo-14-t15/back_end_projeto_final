@@ -15,6 +15,7 @@ const updateCommentService = async (
         where: {
            id: commentId,
         },
+        relations: ["author"]
      });
 
    if (comment === null || comment === undefined) {
