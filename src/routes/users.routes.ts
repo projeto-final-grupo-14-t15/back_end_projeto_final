@@ -42,7 +42,9 @@ userRoutes.delete(
 );
 userRoutes.post("/resetPassword", sendResetEmailPasswordControler);
 userRoutes.patch("/resetPassword/:token", resetPasswordController);
-userRoutes.post("/:id/address", createAddressController);
+
+userRoutes.post("/:id/address", ensureTokenIsValidMiddlewares, ensureUserIsAllowed, createAddressController);
+
 userRoutes.patch(
    "/:id/address",
    ensureTokenIsValidMiddlewares,

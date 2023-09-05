@@ -57,14 +57,15 @@ announcementRoutes.post(
    createCommentAnnouncements
 );
 announcementRoutes.get("/:id/comment", getCommentsByAnnouncement);
+
 announcementRoutes.patch(
-   "/comment/:commentId",
+   "/:id/comment/:commentId",
    ensureTokenIsValidMiddlewares,
    checkCommentOwner,
    updateComment
 );
 announcementRoutes.delete(
-   "/comment/:commentId",
+   "/:id/comment/:commentId",
    ensureTokenIsValidMiddlewares,
    checkCommentOwner,
    deleteComment
