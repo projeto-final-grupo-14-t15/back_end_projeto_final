@@ -48,7 +48,6 @@ const createCommentAnnouncementService = async (
       announcement: announcement,
    });
 
-
    await commentRepository.save(comment);
 
    return comment;

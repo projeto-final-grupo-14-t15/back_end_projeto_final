@@ -57,8 +57,9 @@ const filterAnnouncementService = async (
       .leftJoinAndSelect("announcements.user", "user")
       .getMany();
 
-
-   const parsedResponse = announcementSchemaResponseDois.array().parse(dataFiltered);
+   const parsedResponse = announcementSchemaResponseDois
+      .array()
+      .parse(dataFiltered);
 
    return parsedResponse;
 };

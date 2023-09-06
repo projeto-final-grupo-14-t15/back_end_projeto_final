@@ -1,10 +1,9 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Announcement } from "../../entities/announcements.entitie";
-import { User } from "../../entities/users.entitie";
 import { AppError } from "../../error/error";
 import { Photo } from "../../entities/photos.entitie";
-import { TPhoto, TPhotoRequest } from "../../interfaces/photos.interfaces";
+import { TPhotoRequest } from "../../interfaces/photos.interfaces";
 
 const createPhotoService = async (
    photos: TPhotoRequest,

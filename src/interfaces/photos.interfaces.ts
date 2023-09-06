@@ -1,10 +1,5 @@
 import { z } from "zod";
-import {
-   userSchema,
-   userSchemaRequest,
-   userSchemaRequestDois,
-   userSchemaResponse,
-} from "../schemas/users.schemas";
+import { userSchemaRequestDois } from "../schemas/users.schemas";
 import {
    photoSchema,
    photoSchemaRequest,
