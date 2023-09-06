@@ -1,21 +1,17 @@
 import {
-   BeforeInsert,
-   BeforeUpdate,
    Column,
    CreateDateColumn,
    Entity,
    JoinColumn,
    ManyToOne,
    OneToMany,
-   OneToOne,
    PrimaryGeneratedColumn,
    UpdateDateColumn,
 } from "typeorm";
 
-import { getRounds, hashSync } from "bcryptjs";
-import { Address } from "./address.entitie";
 import { User } from "./users.entitie";
 import { Photo } from "./photos.entitie";
+import { Comment } from "./comment.entitie";
 
 @Entity("announcements")
 class Announcement {
@@ -44,16 +40,22 @@ class Announcement {
    color: string;
 
    @Column({ type: "boolean" })
-   higher_than_fipe: boolean;
+   higherThanFipe: boolean;
+
+   @Column({ type: "boolean", default: true })
+   isActive: boolean;
 
    @Column({ type: "decimal" })
    price: number;
+
+   @Column({ type: "varchar", length: 55 })
+   fipePrice: string;
 
    @CreateDateColumn({ type: "date" })
    createdAt: Date | string;
 
    @UpdateDateColumn({ type: "date" })
-   updated_at: Date | string;
+   updatedAt: Date | string;
 
    @ManyToOne(() => User, (user) => user.announcements)
    @JoinColumn({ name: "user_id" })
@@ -61,6 +63,9 @@ class Announcement {
 
    @OneToMany(() => Photo, (photo) => photo.announcement, { cascade: true })
    photos: Photo[];
+
+   @OneToMany(() => Comment, (comment) => comment.announcement)
+   comments: Comment[];
 }
 
 export { Announcement };

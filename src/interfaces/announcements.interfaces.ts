@@ -1,29 +1,30 @@
 import { z } from "zod";
 import {
-  announcementSchema,
-  announcementSchemaRequest,
-  announcementSchemaResponse,
-  announcementSchemaUpadate,
-  announcementsAllSchemaResponse,
+   announcementSchema,
+   announcementSchemaRequest,
+   announcementSchemaResponse,
 } from "../schemas/announcements.schemas";
-import exp from "constants";
+import {
+   commentSchema,
+   updateCommentSchema,
+} from "../schemas/commentAnnouncements.schemas";
 
 type TAnnouncement = z.infer<typeof announcementSchema>;
 
 type TAnnouncementRequest = z.infer<typeof announcementSchemaRequest>;
 
 type TAnnouncementUpdate = {
-  brand?: string;
-  description?: string;
-  model?: string;
-  year?: string;
-  km?: number;
-  fuel?: string;
-  color?: string;
-  higher_than_fipe?: boolean;
-  price?: number;
+   brand?: string;
+   description?: string;
+   model?: string;
+   year?: string;
+   km?: number;
+   fuel?: string;
+   color?: string;
+   higherThanFipe?: boolean;
+   price?: number;
+   isActive?: boolean;
 };
-// z.infer<typeof announcementSchemaUpadate>;
 
 type TAnnouncementResponse = z.infer<typeof announcementSchemaResponse>;
 type TannouncementsAllSchemaResponse = z.infer<typeof announcementsAllSchemaResponse>;
@@ -35,11 +36,16 @@ type TPagination = {
   nextPage: string | null;
 };
 
+type TComment = z.infer<typeof commentSchema>;
+
+type TCommentUpdate = z.infer<typeof updateCommentSchema>;
+
 export {
-  TPagination,
-  TAnnouncement,
-  TAnnouncementRequest,
-  TAnnouncementResponse,
-  TAnnouncementUpdate,
-  TannouncementsAllSchemaResponse,
+   TAnnouncement,
+   TAnnouncementRequest,
+   TAnnouncementResponse,
+   TAnnouncementUpdate,
+   TComment,
+   TCommentUpdate,
+   updateCommentSchema,
 };

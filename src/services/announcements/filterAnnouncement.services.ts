@@ -2,6 +2,7 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Announcement } from "../../entities/announcements.entitie";
 import { ParsedQs } from "qs";
+import { announcementSchemaResponseDois } from "../../schemas/announcements.schemas";
 
 const filterAnnouncementService = async (
    brand: string | string[] | ParsedQs | ParsedQs[] | undefined,
@@ -9,11 +10,11 @@ const filterAnnouncementService = async (
    color: string | string[] | ParsedQs | ParsedQs[] | undefined,
    year: string | string[] | ParsedQs | ParsedQs[] | undefined,
    fuel: string | string[] | ParsedQs | ParsedQs[] | undefined,
-   minPrice: string | string[] | ParsedQs | ParsedQs[] | undefined,
-   maxPrice: string | string[] | ParsedQs | ParsedQs[] | undefined,
-   minKm: string | string[] | ParsedQs | ParsedQs[] | undefined,
-   maxKm: string | string[] | ParsedQs | ParsedQs[] | undefined
-): Promise<Announcement[]> => {
+   minPrice: string | string[] | ParsedQs | ParsedQs[] | undefined | number,
+   maxPrice: string | string[] | ParsedQs | ParsedQs[] | undefined | number,
+   minKm: string | string[] | ParsedQs | ParsedQs[] | undefined | number,
+   maxKm: string | string[] | ParsedQs | ParsedQs[] | undefined | number
+): Promise<any[]> => {
    const personRepository: Repository<Announcement> =
       AppDataSource.getRepository(Announcement);
 
@@ -48,7 +49,6 @@ const filterAnnouncementService = async (
    }
 
    if (minKm) {
-      console.log(minKm);
       query = query.andWhere("announcements.km  >= :minKm", { minKm });
    }
 
@@ -57,6 +57,10 @@ const filterAnnouncementService = async (
       .leftJoinAndSelect("announcements.user", "user")
       .getMany();
 
-   return dataFiltered;
+   const parsedResponse = announcementSchemaResponseDois
+      .array()
+      .parse(dataFiltered);
+
+   return parsedResponse;
 };
 export { filterAnnouncementService };

@@ -6,32 +6,32 @@ import { User } from "../../entities/users.entitie";
 import { AppError } from "../../error/error";
 
 const createAnnouncementService = async (
-  announcementData: TAnnouncementRequest,
-  id: number
+   announcementData: TAnnouncementRequest,
+   id: number
 ): Promise<Announcement> => {
-  const announcementRepository: Repository<Announcement> =
-    AppDataSource.getRepository(Announcement);
+   const announcementRepository: Repository<Announcement> =
+      AppDataSource.getRepository(Announcement);
 
-  const userRepository: Repository<User> = AppDataSource.getRepository(User);
+   const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  const user = await userRepository.findOne({
-    where: {
-      id: id,
-    },
-  });
+   const user = await userRepository.findOne({
+      where: {
+         id: id,
+      },
+   });
 
-  if (!user) {
-    throw new AppError(`User with id ${id} not found.`, 404);
-  }
+   if (!user) {
+      throw new AppError(`User with id ${id} not found.`, 404);
+   }
 
-  const announcement: Announcement = announcementRepository.create({
-    ...announcementData,
-    user: user,
-  });
+   const announcement: Announcement = announcementRepository.create({
+      ...announcementData,
+      user: user,
+   });
 
-  await announcementRepository.save(announcement);
+   await announcementRepository.save(announcement);
 
-  return announcement;
+   return announcement;
 };
 
 export { createAnnouncementService };

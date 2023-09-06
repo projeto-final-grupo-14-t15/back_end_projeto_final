@@ -5,15 +5,20 @@ import {
    deleteAnnouncementController,
    updateAnnouncementController,
    filterAnnouncementController,
+   getAllUserAnnouncements,
+   createCommentAnnouncements,
+   getCommentsByAnnouncement,
+   updateComment,
+   deleteComment,
+   listCommentById,
 } from "../controllers/announcements.controllers";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middlewares";
-import {
-   announcementSchemaRequest,
-   announcementSchemaUpadate,
-} from "../schemas/announcements.schemas";
+import { announcementSchemaUpadate } from "../schemas/announcements.schemas";
 import { checkAnnouncementExistByIdMiddlewares } from "../middlewares/checkAnnouncementsExistById.middlewares";
 import { checkIsOwnerAnnoucemntsMiddlewares } from "../middlewares/userIsOwnerAnnoucement.middlewares";
 import ensureTokenIsValidMiddlewares from "../middlewares/ensureTokenIsValid.middlewares";
+import { commentSchemaRequest } from "../schemas/commentAnnouncements.schemas";
+import { checkCommentOwner } from "../middlewares/isUserCommentOwner.middleware";
 
 const announcementRoutes: Router = Router();
 
@@ -42,5 +47,30 @@ announcementRoutes.delete(
    deleteAnnouncementController
 );
 
+
+announcementRoutes.get("/byannouncer/:id", getAllUserAnnouncements);
+
+announcementRoutes.post(
+   "/:id/comment",
+   ensureTokenIsValidMiddlewares,
+   ensureDataIsValidMiddleware(commentSchemaRequest),
+   createCommentAnnouncements
+);
+announcementRoutes.get("/:id/comment", getCommentsByAnnouncement);
+
+announcementRoutes.patch(
+   "/comment/:commentId",
+   ensureTokenIsValidMiddlewares,
+   checkCommentOwner,
+   updateComment
+);
+announcementRoutes.delete(
+   "/comment/:commentId",
+   ensureTokenIsValidMiddlewares,
+   checkCommentOwner,
+   deleteComment
+);
+
+announcementRoutes.get("/comment/:id", listCommentById);
 
 export default announcementRoutes;
