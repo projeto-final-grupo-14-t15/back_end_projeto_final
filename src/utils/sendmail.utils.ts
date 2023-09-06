@@ -41,7 +41,7 @@ export const resetPasswordTemplate = (
       theme: "default",
       product: {
          name: "Solicitação de alteração de senha",
-         link: "http://localhost:5173/",
+         link: "https://road-rovers.vercel.app/",
       },
    });
 
@@ -56,7 +56,7 @@ export const resetPasswordTemplate = (
             button: {
                color: "#4529E6",
                text: "Redefinir sua senha",
-               link: `http://localhost:5173/recoverypassword/${resetToken}`,
+               link: `https://road-rovers.vercel.app/recoverypassword/${resetToken}`,
             },
          },
          outro: "Se você não solicitou uma redefinição de senha, basta ignorar este e-mail.",
