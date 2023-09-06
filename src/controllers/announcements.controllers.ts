@@ -4,7 +4,6 @@ import {
    TAnnouncementResponse,
 } from "../interfaces/announcements.interfaces";
 import {
-   announcementSchema,
    announcementSchemaRequest,
    announcementSchemaResponse,
    announcementSchemaResponseDois,
@@ -25,7 +24,6 @@ import { updatePhotoService } from "../services/photos/updatePhotos.service";
 import { createCommentAnnouncementService } from "../services/announcements/comments/createCommentAnnoucement.service";
 import {
    commentSchema,
-   commentSchemaRequest,
 } from "../schemas/commentAnnouncements.schemas";
 import { getCommentsByAnnouncementService } from "../services/announcements/comments/listAnnouncementComments.service";
 import { deleteCommentService } from "../services/announcements/comments/deleteComment.service";
@@ -57,7 +55,7 @@ const createAnnouncementController = async (
    photos.map(async (photo: string) => {
       const data: TPhotoRequest = { link: photo };
 
-      const newPhoto: Photo = await createPhotoService(data, response.id);
+      await createPhotoService(data, response.id);
    });
 
    const fullResponse = await listAnnouncementService(response.id);
@@ -104,8 +102,6 @@ const listAnnouncementController = async (
    const announcementId: number = Number(req.params.id);
 
    const response = await listAnnouncementService(announcementId);
-
-   // const parsedResponse = announcementSchemaResponseDois.parse(response);
 
    return res.status(200).json(response);
 };

@@ -5,7 +5,6 @@ import {
    CreateDateColumn,
    DeleteDateColumn,
    Entity,
-   JoinColumn,
    OneToMany,
    OneToOne,
    PrimaryGeneratedColumn,
@@ -54,7 +53,7 @@ class User {
    @UpdateDateColumn({ type: "date" })
    updatedAt: Date | string;
 
-   @DeleteDateColumn({nullable:true})
+   @DeleteDateColumn({ nullable: true })
    deletedAt: Date | String | null | undefined;
 
    @OneToOne(() => Address, (address) => address.user, { cascade: true })
@@ -71,8 +70,8 @@ class User {
       if (!password) {
          this.password = hashSync(this.password, 10);
       }
-   };
-   @Column({type: "varchar", nullable: true})
+   }
+   @Column({ type: "varchar", nullable: true })
    reset_password: string | null;
 }
 

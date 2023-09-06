@@ -1,9 +1,7 @@
 interface iEmailRequest {
-    to: string
-    subject: string
-    text: string
+   to: string;
+   subject: string;
+   text: string;
 }
 
-export {
-    iEmailRequest
-}
+export { iEmailRequest };

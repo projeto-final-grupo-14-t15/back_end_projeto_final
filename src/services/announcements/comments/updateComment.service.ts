@@ -11,23 +11,23 @@ const updateCommentService = async (
    const commentRepository: Repository<Comment> =
       AppDataSource.getRepository(Comment);
 
-    const comment = await commentRepository.findOne({
-        where: {
-           id: commentId,
-        },
-        relations: ["author"]
-     });
+   const comment = await commentRepository.findOne({
+      where: {
+         id: commentId,
+      },
+      relations: ["author"],
+   });
 
    if (comment === null || comment === undefined) {
       throw new AppError(`Comment with id ${commentId} not found.`, 404);
    }
 
-   comment.text = updatedData.text; 
-   comment.update_date = new Date().toISOString(); 
+   comment.text = updatedData.text;
+   comment.update_date = new Date().toISOString();
 
    const newComment = await commentRepository.save(comment);
 
-   return newComment
+   return newComment;
 };
 
 export { updateCommentService };

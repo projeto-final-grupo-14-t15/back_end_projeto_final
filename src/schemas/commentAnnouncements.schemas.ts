@@ -1,8 +1,6 @@
 import { z } from "zod";
 import { userInfoSchema } from "./users.schemas";
-import {
-   announcementSchemaResponseDois,
-} from "./announcements.schemas";
+import { announcementSchemaResponseDois } from "./announcements.schemas";
 
 const authonSchema = userInfoSchema.omit({ address: true });
 const announcementForCommentSchema = announcementSchemaResponseDois.omit({

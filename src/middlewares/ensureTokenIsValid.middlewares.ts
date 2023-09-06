@@ -22,7 +22,7 @@ const ensureTokenIsValidMiddlewares = async (
 
       res.locals.token = {
          id: decoded?.sub,
-         admin : decoded?.admin
+         admin: decoded?.admin,
       };
 
       return next();

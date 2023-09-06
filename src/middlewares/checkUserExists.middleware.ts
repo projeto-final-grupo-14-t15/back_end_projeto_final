@@ -4,18 +4,24 @@ import { User } from "../entities/users.entitie";
 import { Repository } from "typeorm";
 import { AppError } from "../error/error";
 
-const checkUserExists = async (req:Request, res: Response, next: NextFunction) => {
-    const reqId = req.params.id;
-    
-    const userRepo: Repository<User> = AppDataSource.getRepository(User);
+const checkUserExists = async (
+   req: Request,
+   res: Response,
+   next: NextFunction
+) => {
+   const reqId = req.params.id;
 
-    const findUser: User | null = await userRepo.findOneBy({id:Number(reqId)});
+   const userRepo: Repository<User> = AppDataSource.getRepository(User);
 
-    if(!findUser){
-        throw new AppError('User not found', 404);
-    };  
+   const findUser: User | null = await userRepo.findOneBy({
+      id: Number(reqId),
+   });
 
-    return next();
+   if (!findUser) {
+      throw new AppError("User not found", 404);
+   }
+
+   return next();
 };
 
-export default checkUserExists
+export default checkUserExists;

@@ -6,7 +6,6 @@ import {
 } from "../interfaces/users.interfaces";
 import {
    updateSchemaResponse,
-   updatedUserRequestSchema,
    userSchemaRequest,
    userSchemaRequestDois,
 } from "../schemas/users.schemas";
@@ -92,7 +91,7 @@ const deleteUserController = async (
 ): Promise<Response> => {
    const userId: number = Number(req.params.id);
 
-   const deletedUser = await deleteUserService(userId);
+   await deleteUserService(userId);
 
    return res.status(204).send();
 };
@@ -100,7 +99,7 @@ const deleteUserController = async (
 const sendResetEmailPasswordControler = async (req: Request, res: Response) => {
    const { email } = req.body;
 
-   const sendmail = await sendResetEmailPassword(email);
+   await sendResetEmailPassword(email);
 
    return res.json({ message: "token send" });
 };
