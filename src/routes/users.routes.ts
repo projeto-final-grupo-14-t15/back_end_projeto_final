@@ -45,8 +45,6 @@ userRoutes.patch("/resetPassword/:token", resetPasswordController);
 
 userRoutes.post(
    "/:id/address",
-   ensureTokenIsValidMiddlewares,
-   ensureUserIsAllowed,
    createAddressController
 );
 
