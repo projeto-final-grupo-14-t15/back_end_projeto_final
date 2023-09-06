@@ -28,7 +28,8 @@ announcementRoutes.post(
    createAnnouncementController
 );
 
-announcementRoutes.get("/:id", listAnnouncementController);
+announcementRoutes.get("/filter", filterAnnouncementController);
+announcementRoutes.get("/", listAnnouncementController);
 
 announcementRoutes.patch(
    "/:id",
@@ -46,7 +47,6 @@ announcementRoutes.delete(
    deleteAnnouncementController
 );
 
-announcementRoutes.get("", filterAnnouncementController);
 
 announcementRoutes.get("/byannouncer/:id", getAllUserAnnouncements);
 

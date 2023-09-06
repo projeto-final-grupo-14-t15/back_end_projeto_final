@@ -27,6 +27,14 @@ type TAnnouncementUpdate = {
 };
 
 type TAnnouncementResponse = z.infer<typeof announcementSchemaResponse>;
+type TannouncementsAllSchemaResponse = z.infer<typeof announcementsAllSchemaResponse>;
+
+type TPagination = {
+  data: TannouncementsAllSchemaResponse;
+  currentPage: string | null;
+  totalPages: number;
+  nextPage: string | null;
+};
 
 type TComment = z.infer<typeof commentSchema>;
 

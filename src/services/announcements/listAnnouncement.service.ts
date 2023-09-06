@@ -1,7 +1,5 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-
-import { AppError } from "../../error/error";
 import { Announcement } from "../../entities/announcements.entitie";
 import { announcementSchemaResponseDois } from "../../schemas/announcements.schemas";
 
@@ -29,4 +27,5 @@ const listAnnouncementService = async (
 
    return announcement;
 };
+
 export { listAnnouncementService };

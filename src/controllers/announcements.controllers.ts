@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
    TAnnouncementRequest,
    TAnnouncementResponse,
+   TPagination,
 } from "../interfaces/announcements.interfaces";
 import {
    announcementSchemaRequest,
@@ -104,7 +105,7 @@ const listAnnouncementController = async (
    const response = await listAnnouncementService(announcementId);
 
    return res.status(200).json(response);
-};
+
 
 const filterAnnouncementController = async (
    req: Request,
